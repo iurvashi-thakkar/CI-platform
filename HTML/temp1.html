@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
+    <link rel="stylesheet" href="/html-css/css/temp.css">
+    <link rel="stylesheet" href="/html-css/css/swiper.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <title>Volunteering Mission</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="sticky-top bg-white">
+        <nav class="navbar navbar-expand-lg border-bottom">
+            <div class="container">
+                <div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#headerContent" aria-controls="headerContent" aria-expanded="false"
+                        aria-label="Toggle navigation" style="border:none">
+                        <span><img src="/html-css/css/images/list.png"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <img src="/html-css/css/images/logo.png" alt="">
+                    </a>
+                </div>
+
+                <div class="offcanvas offcanvas-start" id="headerContent">
+                    <div class="offcanvas-header flex-row-reverse">
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 offcanvas-body">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Explore
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Volunteering</a></li>
+                                <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page">Stories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page">News</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Policy
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Volunteering</a></li>
+                                <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="right-div d-flex">
+                    <div class="dropdown">
+                        <a class="nav-link" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <span>
+                                <img src="/html-css/css/images/bell.png" alt="" class="m-2 me-4">
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="#">My Account</a></li>
+                            <li><a class="dropdown-item" href="#">Help Center</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span>
+                                <img src="/html-css/css/images/user-img.png" alt="" class="rounded-circle me-2"
+                                    width="40" height="40">
+                            </span>
+                            <p class="d-inline" id="profileText">
+                                Evan Donohue
+                            </p>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="#">My Account</a></li>
+                            <li><a class="dropdown-item" href="#">Help Center</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- FILTERS -->
+    <div class="border-bottom border-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12 p-3 border-start border-end d-inline-flex">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-none" id="seacrhIcon">
+                            <img src="/html-css/css/images/search.png" />
+                        </span>
+                        <input type="text" class="form-control border-none" placeholder="Search" aria-label="Search"
+                            aria-describedby="seacrhIcon">
+                    </div>
+                    <button class="img-filter border-none bg-white">
+                        <img src="/html-css/css/images/filter.png" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#filterMenu" aria-controls="filterMenu" />
+                    </button>
+                </div>
+                <div class="filter-options col-md-8">
+                    <div class="row h-100">
+                        <div class="col-md-3 p-3 border-end">
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="countryDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Country
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                    <li><a class="dropdown-item" href="#">country1</a></li>
+                                    <li><a class="dropdown-item" href="#">country2</a></li>
+                                    <li><a class="dropdown-item" href="#">country3</a></li>
+                                    <li><a class="dropdown-item" href="#">country4</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 p-3 border-end">
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="cityDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    City
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cityDropdown">
+                                    <li><a class="dropdown-item" href="#">city1</a></li>
+                                    <li><a class="dropdown-item" href="#">city2</a></li>
+                                    <li><a class="dropdown-item" href="#">city3</a></li>
+                                    <li><a class="dropdown-item" href="#">city4</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 p-3 border-end">
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="themeDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Theme
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+                                    <li><a class="dropdown-item" href="#">theme1</a></li>
+                                    <li><a class="dropdown-item" href="#">theme2</a></li>
+                                    <li><a class="dropdown-item" href="#">theme3</a></li>
+                                    <li><a class="dropdown-item" href="#">theme4</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 p-3 border-end">
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="skillsDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Skills
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="skillsDropdown">
+                                    <li><a class="dropdown-item" href="#">skill1</a></li>
+                                    <li><a class="dropdown-item" href="#">skill2</a></li>
+                                    <li><a class="dropdown-item" href="#">skill3</a></li>
+                                    <li><a class="dropdown-item" href="#">skill4</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="offcanvas offcanvas-start" id="filterMenu" aria-labelledby="filterMenu">
+                    <div class="offcanvas-header flex-row-reverse">
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="accordion" id="filters">
+                            <div class="accordion-item border-none">
+                                <h2 class="accordion-header" id="country">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#countriesAccordion" aria-expanded="false"
+                                        aria-controls="countriesAccordion">
+                                        Country
+                                    </button>
+                                </h2>
+                                <div id="countriesAccordion" class="accordion-collapse collapse"
+                                    aria-labelledby="country" data-bs-parent="#filters">
+                                    <div class="accordion-body">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="country1">
+                                            <label class="form-check-label" for="country1">
+                                                country1
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="country2">
+                                            <label class="form-check-label" for="country2">
+                                                country2
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="country3">
+                                            <label class="form-check-label" for="country3">
+                                                country3
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="country4">
+                                            <label class="form-check-label" for="country4">
+                                                country4
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-none">
+                                <h2 class="accordion-header" id="city">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#citiesAccordion" aria-expanded="false"
+                                        aria-controls="citiesAccordion">
+                                        City
+                                    </button>
+                                </h2>
+                                <div id="citiesAccordion" class="accordion-collapse collapse" aria-labelledby="city"
+                                    data-bs-parent="#filters">
+                                    <div class="accordion-body">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="city1">
+                                            <label class="form-check-label" for="city1">
+                                                city1
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="city2">
+                                            <label class="form-check-label" for="city2">
+                                                city2
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="city3">
+                                            <label class="form-check-label" for="city3">
+                                                city3
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="city4">
+                                            <label class="form-check-label" for="city4">
+                                                city4
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-none">
+                                <h2 class="accordion-header" id="theme">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#themesAccordion" aria-expanded="false"
+                                        aria-controls="themesAccordion">
+                                        Theme
+                                    </button>
+                                </h2>
+                                <div id="themesAccordion" class="accordion-collapse collapse" aria-labelledby="theme"
+                                    data-bs-parent="#filters">
+                                    <div class="accordion-body">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="theme1">
+                                            <label class="form-check-label" for="theme1">
+                                                theme1
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="theme2">
+                                            <label class="form-check-label" for="theme2">
+                                                theme2
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="theme3">
+                                            <label class="form-check-label" for="theme3">
+                                                theme3
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="theme4">
+                                            <label class="form-check-label" for="theme4">
+                                                theme5
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-none">
+                                <h2 class="accordion-header" id="skill">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#skillsAccordion" aria-expanded="false"
+                                        aria-controls="skillsAccordion">
+                                        Skills
+                                    </button>
+                                </h2>
+                                <div id="skillsAccordion" class="accordion-collapse collapse" aria-labelledby="skill"
+                                    data-bs-parent="#filters">
+                                    <div class="accordion-body">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="skill1">
+                                            <label class="form-check-label" for="skill1">
+                                                skill1
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="skill2">
+                                            <label class="form-check-label" for="skill2">
+                                                skill2
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="skill3">
+                                            <label class="form-check-label" for="skill3">
+                                                skill3
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="skill4">
+                                            <label class="form-check-label" for="skill4">
+                                                skill4
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="container">
+        <div class="row d-flex">
+
+            <!-- SLIDER -->
+            <!-- <div class="col-lg-6">
+                <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="./images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/img1.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img
+                                src="./images/Grow-Trees-On-the-path-to-environment-sustainability-login.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/img1.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/image1.png" />
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <div thumbsSlider="" class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="./images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/img1.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img
+                                src="./images/Grow-Trees-On-the-path-to-environment-sustainability-login.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/img11.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/image1.png" />
+                        </div>
+
+                    </div>
+
+                </div>
+            </div> -->
+
+            <!-- COL2 -->
+            <div class="col-xl-6">
+                <div class="text" style="color: #414141;">
+                    <h2 class="mt-4">CSR initiative stands for Coffee & Farmer Equity</h2>
+                    <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut
+                        labore
+                        et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+
+                <div class="mt-4 row gx-0">
+                    <div class="col-3">
+                        <hr>
+                    </div>
+                    <div class="col-6 text-center border border-secondary rounded-pill">
+                        <span style="font-size: 15px; color: #414141;">Plant 10,000 Trees</span>
+                    </div>
+                    <div class="col-3">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-around mt-4" style="color: #757575;">
+                    <div class="d-flex align-items-center">
+                        <img src="./images/Seats-left.png" alt=""
+                            style="margin-right: 10px; width: 30px; height: 30px">
+                        <div class="d-flex flex-column">
+                            <span>10</span>
+                            <span>Seats Left</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <img src="./images/mission.png" alt=""
+                            style="margin-right: 10px; width: 30px; height: 30px">
+                        <div class="d-flex flex-column">
+                            <div class="progress" style="width: 150px; height: 12px;">
+                                <div class="progress-bar" role="progressbar"
+                                    style="width: 80%; background-color: #F88634;" aria-valuenow="80" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                            <span>8000 Achieved</span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="row gy-4 d-flex">
+                    <div class="col-md-6">
+                        <button class="btn-share rounded-pill p-2 w-100">
+                            <img src=" ./images/heart1.png" alt="">
+                            Add to Favourite
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn-share rounded-pill p-2 w-100">
+                            <img src="./images/add1.png" alt="">
+                            Recommend to a Co-Worker
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-4 row gx-0">
+                    <div class="col-3">
+                        <hr>
+                    </div>
+                    <div class="col-6 text-center border border-secondary rounded-pill">
+                        <img src="./images/star-empty.png" alt="" style="height: 24px;">
+                        <img src="./images/star-empty.png" alt="" style="height: 24px;">
+                        <img src="./images/star-empty.png" alt="" style="height: 24px;">
+                        <img src="./images/star-empty.png" alt="" style="height: 24px;">
+                        <img src="./images/star-empty.png" alt="" style="height: 24px;">
+                    </div>
+                    <div class="col-3">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="d-flex cards justify-content-between mt-4" style="color: #757575;">
+                    <div class="d-flex flex-column header-card justify-content-around p-2">
+                        <div>
+                            <img src="./images/pin1.png" alt="">
+                        </div>
+                        <div class="mt-4">
+                            <span>City</span>
+                            <p><strong>London</strong></p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column header-card justify-content-around p-2">
+                        <div>
+                            <img src="./images/web.png" alt="">
+                        </div>
+                        <div class="mt-4">
+                            <span>Theme</span>
+                            <p><strong>Environment</strong></p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column header-card justify-content-around p-2">
+                        <div>
+                            <img src="./images/calender.png" alt="">
+                        </div>
+                        <div class="mt-4">
+                            <span>Date</span>
+                            <p><strong>Ongoing Opportunity</strong></p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column header-card justify-content-around p-2">
+                        <div>
+                            <img src="./images/organization.png" alt="">
+                        </div>
+                        <div class="mt-4">
+                            <span>Organization</span>
+                            <p><strong>CSE Network </strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="btn-apply rounded-pill px-4 py-2">
+                        Apply Now
+                        <img src="./images/right-arrow.png" alt="" class="ms-3">
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row gy-4 mt-5 mb-5 d-flex">
+            <!-- TABS -->
+            <div class="tabs col-lg-7">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="mission-tab" data-bs-toggle="tab" data-bs-target="#mission"
+                            type="button" role="tab" aria-controls="mission" aria-selected="true">Mission</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="organization-tab" data-bs-toggle="tab"
+                            data-bs-target="#organization" type="button" role="tab" aria-controls="organization"
+                            aria-selected="false">Organization</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments"
+                            type="button" role="tab" aria-controls="comments" aria-selected="false">Comments</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent" style="color: #414141">
+                    <div class="tab-pane fade show active mt-4" id="mission" role="tabpanel"
+                        aria-labelledby="mission-tab">
+                        <h4 class="mb-3">Introduction</h4>
+                        <p style="font: 15px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                        <p style="font: 15px;">
+                            Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p style="font: 15px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+
+                        <h4 class="mb-3 mt-4">Challenge</h4>
+                        <p style="font: 15px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                        <p style="font: 15px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+
+                        <h4 class="mb-3 mt-4">Documents</h4>
+                        <!-- <div class="d-flex flex-row justify-content-between">
+                            <div class="py-1 px-3 rounded-pill border border-secondary">
+                                <img src="./images/pdf.png" alt="">
+                                lorem-ipsum.pdf
+                            </div>
+
+                            <div class="py-1 px-3 rounded-pill border border-secondary">
+                                <img src="./images/doc.png" alt="">
+                                at_vero_eos_accusamus.doc
+                            </div>
+
+                            <div class="py-1 px-3 rounded-pill border border-secondary">
+                                <img src="./images/xlsx.png" alt="">
+                                important_doc.xls
+                            </div>
+                        </div> -->
+
+                        <div class="row d-flex">
+                            <div class="col">
+                                <button class="py-1 px-2 rounded-pill border border-secondary">
+                                    <img src="./images/pdf.png" alt="">
+                                    lorem-ipsum.pdf
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="py-1 px-2 rounded-pill border border-secondary">
+                                    <img src="./images/doc.png" alt="">
+                                    at_vero_eos.doc
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="py-1 px-2 rounded-pill border border-secondary">
+                                    <img src="./images/xlsx.png" alt="">
+                                    important_doc.xls
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade mt-4" id="organization" role="tabpanel"
+                        aria-labelledby="organization-tab">
+                        <h4 class="mb-3">About Organization</h4>
+                        <p style="font: 15px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                        <p style="font: 15px;">
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                            mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                    </div>
+
+                    <div class="tab-pane fade mt-4" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                        <h4 class="mb-3">Comments</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1"></div>
+
+            <div class="col-lg-4">
+                <div class="row border border-secondary">
+                    <div class="tabs d-flex flex-column" style="font-size: 15px;">
+                        <ul class="nav nav-tabs mt-3">
+                            <li class="nav-item">
+                                <a class="nav-link active disabled" aria-current="page" href="#"
+                                    style="font-size: 22px;">Information</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex justify-content-start mt-3">
+                            <p>Skills</p>
+                            <p class="ms-5">Cool, Easy going, Math, Computer</p>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-start mt-3">
+                            <p>Days</p>
+                            <p class="ms-5">Weekend only</p>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-start mt-3 mb-3">
+                            <p>Rating</p>
+                            <div class="ms-5">
+                                <img src="./images/selected-star.png" alt="">
+                                <img src="./images/selected-star.png" alt="">
+                                <img src="./images/selected-star.png" alt="">
+                                <img src="./images/selected-star.png" alt="">
+                                <img src="./images/selected-star.png" alt="">
+                            </div>
+                        </div>
+                        <!-- <hr> -->
+                    </div>
+                </div>
+
+                <div class="row border border-secondary mt-5">
+                    <div class="tabs d-flex flex-column" style="font-size: 15px;">
+                        <ul class="nav nav-tabs mt-3">
+                            <li class="nav-item">
+                                <a class="nav-link active disabled" aria-current="page" href="#"
+                                    style="font-size: 22px;">Recent Volunteers</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex justify-content-around mt-3">
+                            <div class="text-center">
+                                <img src="./images/volunteer1.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                            <div class="text-center">
+                                <img src="./images/volunteer2.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                            <div class="text-center">
+                                <img src="./images/volunteer3.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-around mt-3">
+                            <div class="text-center">
+                                <img src="./images/volunteer4.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                            <div class="text-center">
+                                <img src="./images/volunteer5.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                            <div class="text-center">
+                                <img src="./images/volunteer6.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-around mt-3">
+                            <div class="text-center">
+                                <img src="./images/volunteer7.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                            <div class="text-center">
+                                <img src="./images/volunteer8.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                            <div class="text-center">
+                                <img src="./images/volunteer9.png" alt="" class="rounded-circle vol-img">
+                                <p>Andrew Johnson</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mb-0">
+                    <div class="mt-0 row g-0">
+                        <div class="col-1">
+                            <button class="border-end border-secondary p-2" style="border: none;">
+                                <img src="./images/left.png" alt="">
+                            </button>
+                        </div>
+                        <div class="col-10 mt-2 text-center">
+                            1 - 9 of 25 Recent Volunteers
+                        </div>
+                        <div class="col-1 text-end">
+                            <button class="border-start border-secondary p-2" style="border: none;">
+                                <img src="./images/right-arrow1.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-top">
+        <div class="container pt-3 pb-5">
+            <div class="row d-flex">
+                <div class="col-lg-6 links">
+                    <div class="row pt-3">
+                        <div class="col">
+                            <a href="" class="p-2 text-decoration-none" style="color: #212529;">Privacy Policy</a>
+                        </div>
+                        <div class="col">
+                            <a href="" class="p-2 text-decoration-none" style="color: #212529;">Cookie Policy</a>
+                        </div>
+                        <div class="col">
+                            <a href="" class="p-2 text-decoration-none" style="color: #212529;">Terms of Use</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 copyright pt-3">
+                    <span>&copy; 2019 Optimy.com. All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SLIDER SCRIPT -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+        var swiper2 = new Swiper(".mySwiper2", {
+            loop: true,
+            spaceBetween: 10,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: swiper,
+            },
+        });
+    </script>
+</body>
+
+</html>
