@@ -1,0 +1,308 @@
+﻿
+<div class="shadow-sm border-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 p-3 border-start border-end d-inline-flex">
+                <div class="input-group">
+                  <span class="input-group-text bg-white border-none" id="seacrhIcon">
+                      <img src="~/images/search.png" />
+                  </span>
+                  <input type="search" class="form-control border-none" placeholder="Search" aria-label="Search" aria-describedby="seacrhIcon" id="searchField">
+                </div>
+                <button class="img-filter border-none bg-white">
+                    <img src="~/images/filter.png" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu"/>
+                </button>
+            </div>
+            <div class="filter-options col-md-8">
+                <div class="row h-100">
+                    <div class="col-md-3 p-3 border-end">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="countryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               Country
+                            </a> 
+                            <ul class="dropdown-menu scrollable-menu" aria-labelledby="profileDropdown" role="menu">
+                                <li><a class="dropdown-item" href="#">Canada</a></li>
+                                <li><a class="dropdown-item" href="#">England</a></li>
+                                <li><a class="dropdown-item" href="#">India</a></li>
+                                <li><a class="dropdown-item" href="#">USA</a></li>
+                                <li><a class="dropdown-item" href="#">Canada</a></li>
+                                <li><a class="dropdown-item" href="#">England</a></li>
+                                <li><a class="dropdown-item" href="#">India</a></li>
+                                <li><a class="dropdown-item" href="#">USA</a></li>
+                                <li><a class="dropdown-item" href="#">Canada</a></li>
+                                <li><a class="dropdown-item" href="#">England</a></li>
+                                <li><a class="dropdown-item" href="#">India</a></li>
+                                <li><a class="dropdown-item" href="#">USA</a></li>
+                                <li><a class="dropdown-item" href="#">Canada</a></li>
+                                <li><a class="dropdown-item" href="#">England</a></li>
+                                <li><a class="dropdown-item" href="#">India</a></li>
+                                <li><a class="dropdown-item" href="#">USA</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-3 border-end">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="cityDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               City
+                            </a>
+                            <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="cityDropdown">
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Delhi" id="city1">
+                                        <label class="form-check-label" for="city1">Delhi</label>
+                                    </div>
+                                </li> 
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Chennai" id="city2">
+                                        <label class="form-check-label" for="city2">Chennai</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Ahmedabad" id="city3">
+                                        <label class="form-check-label" for="city3">Ahmedabad</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Mumbai" id="city4">
+                                        <label class="form-check-label" for="city4">Mumbai</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-3 border-end">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="themeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               Theme
+                            </a>
+                            <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="themeDropdown">
+                                <li>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="theme1" id="theme1">
+                                      <label class="form-check-label" for="theme1">
+                                        theme1
+                                      </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="theme2" id="theme2">
+                                      <label class="form-check-label" for="theme2">
+                                        theme2
+                                      </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="theme3" id="theme3">
+                                      <label class="form-check-label" for="theme3">
+                                        theme3
+                                      </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="theme4" id="theme4">
+                                      <label class="form-check-label" for="theme4">
+                                        theme4
+                                      </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-3 border-end">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="skillsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               Skills
+                            </a>
+                            <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="skillsDropdown">
+                                <li>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="skill1" id="skill1">
+                                      <label class="form-check-label" for="skill1">skill1</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="skill2" id="skill2">
+                                      <label class="form-check-label" for="skill2">skill2</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="skill3" id="skill3">
+                                      <label class="form-check-label" for="skill3">
+                                        skill3
+                                      </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="skill4" id="skill4">
+                                      <label class="form-check-label" for="skill4">
+                                        skill4
+                                      </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="filterMenu" aria-labelledby="filterMenu">
+              <div class="offcanvas-header flex-row-reverse">
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                  <div class="accordion" id="filters">
+                      <div class="accordion-item border-none">
+                        <h2 class="accordion-header" id="country">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#countriesAccordion" aria-expanded="false" aria-controls="countriesAccordion">
+                            Country
+                          </button>
+                        </h2>
+                        <div id="countriesAccordion" class="accordion-collapse collapse" aria-labelledby="country" data-bs-parent="#filters">
+                          <div class="accordion-body">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="country1">
+                              <label class="form-check-label" for="country1">
+                                Canada
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="country2">
+                              <label class="form-check-label" for="country2">
+                                England
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="country3">
+                              <label class="form-check-label" for="country3">
+                                India
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="country4">
+                              <label class="form-check-label" for="country4">
+                                USA
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item border-none">
+                        <h2 class="accordion-header" id="city">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#citiesAccordion" aria-expanded="false" aria-controls="citiesAccordion">
+                           City
+                          </button>
+                        </h2>
+                        <div id="citiesAccordion" class="accordion-collapse collapse" aria-labelledby="city" data-bs-parent="#filters">
+                          <div class="accordion-body">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="city1">
+                              <label class="form-check-label" for="city1">
+                                Delhi
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="city2">
+                              <label class="form-check-label" for="city2">
+                                Chennai
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="city3">
+                              <label class="form-check-label" for="city3">
+                                Ahmedabad
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="city4">
+                              <label class="form-check-label" for="city4">
+                                Mumbai
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item border-none">
+                        <h2 class="accordion-header" id="theme">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#themesAccordion" aria-expanded="false" aria-controls="themesAccordion">
+                            Theme
+                          </button>
+                        </h2>
+                        <div id="themesAccordion" class="accordion-collapse collapse" aria-labelledby="theme" data-bs-parent="#filters">
+                         <div class="accordion-body">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="theme1">
+                              <label class="form-check-label" for="theme1">
+                                theme1
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="theme2">
+                              <label class="form-check-label" for="theme2">
+                                theme2
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="theme3">
+                              <label class="form-check-label" for="theme3">
+                                theme3
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="theme4">
+                              <label class="form-check-label" for="theme4">
+                                theme5
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item border-none">
+                        <h2 class="accordion-header" id="skill">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#skillsAccordion" aria-expanded="false" aria-controls="skillsAccordion">
+                            Skills
+                          </button>
+                        </h2>
+                        <div id="skillsAccordion" class="accordion-collapse collapse" aria-labelledby="skill" data-bs-parent="#filters">
+                         <div class="accordion-body">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="skill1">
+                              <label class="form-check-label" for="skill1">
+                                skill1
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="skill2">
+                              <label class="form-check-label" for="skill2">
+                                skill2
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="skill3">
+                              <label class="form-check-label" for="skill3">
+                                skill3
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="skill4">
+                              <label class="form-check-label" for="skill4">
+                                skill4
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+

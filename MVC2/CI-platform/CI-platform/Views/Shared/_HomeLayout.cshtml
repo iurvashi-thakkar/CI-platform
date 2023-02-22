@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+
+   @* <link rel="stylesheet" href="~/css/MultiItemCarousel.css" />*@
+      <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+          <link rel="stylesheet" href="~/css/HomePage.css" />
+           <link rel="stylesheet" href="~/css/mission.css"/>
+    <link rel="stylesheet" href="css/swiper.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+   @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />*@
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+          <div class="container">
+            <div>
+                <button class="menu-btn border-none bg-white " type="button" data-bs-toggle="offcanvas" data-bs-target="#headerContent" aria-controls="headerContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span><img src="~/images/list.png"/></span>
+                </button>
+                <a class="navbar-brand" asp-controller="Home" asp-action="HomePage">
+                    <img src="~/images/logo.png" />
+                </a>
+            </div>
+            
+            <div class="offcanvas offcanvas-start" id="headerContent">
+              <div class="offcanvas-header flex-row-reverse">
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 offcanvas-body">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page">Stories</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Policy
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Volunteering</a></li>
+                    <li><a class="dropdown-item" href="#">Sponsored</a></li>
+                    <li><a class="dropdown-item" href="#">Terms and Conditions</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="right-div d-flex">
+                <button class="border-none bg-white m-2 me-4">
+                    <img src="~/images/bell.png"/>
+                </button>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span>
+                            <img src="~/images/user-img.png" class="profilePhoto" />
+                        </span>
+                        <p class="d-inline" id="profileText">
+                        Evan Donohue
+                        </p>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </nav>
+    </header>
+   @* <partial name="_Notification" />*@
+    <div>
+        @RenderBody()
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+@*    <script src="~/js/missionListing.js"></script>
+    <script src="~/js/filterMission.js"></script>
+    <script src="~/js/CustomCarousel.js"></script>*@
+     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

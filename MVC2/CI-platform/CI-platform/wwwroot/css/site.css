@@ -1,0 +1,157 @@
+* {
+    font-family: NotoSans;
+    color: #414141;
+}
+
+body {
+    height: 100%;
+}
+
+.form-btn {
+    width: 401px;
+    height: 56px;
+}
+
+.cara-img {
+  /*  background-image: url('../img/Grow-Trees-On-the-path-to-environment-sustainability-login.png');*/
+    height: 100vh;
+    background-size: cover;
+    background-position: center
+    /* background-repeat: no-repeat; */
+}
+
+.form-btn-reset {
+    width: 401px;
+    height: 56px;
+    border-radius: 25px;
+    border: 1px solid #f88634;
+    color: #f88634;
+}
+
+    .form-btn-reset:hover {
+        background-color: #f88634;
+    }
+
+a {
+    text-decoration: none;
+    color: #414141;
+}
+/* for vertically center element */
+
+.forgot-pass-top {
+    margin-top: 40%;
+}
+
+.form-btn-register {
+    width: 401px;
+    height: 40px;
+}
+
+.form-register {
+    width: 401px;
+    height: 40px;
+    border-radius: 25px;
+    border: 1px solid #f88634;
+    color: #f88634;
+}
+
+    .form-register:hover {
+        background-color: #f88634;
+    }
+
+.carousel-indicators button {
+    border-radius: 100% !important;
+    width: 5px !important;
+    height: 5px !important;
+}
+
+.loginform {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-top: 15px;
+}
+
+.caption-content {
+    color: white;
+    font-size: 16px;
+}
+
+.caption-header {
+    color: white
+}
+
+@media (max-width:425px) {
+    .caption-content {
+        font-size: smaller;
+    }
+}
+
+@media (max-width:424px) {
+    .form-btn {
+        width: 250px;
+        height: 40px
+    }
+
+    .form-btn-reset {
+        width: 250px;
+        height: 40px;
+        border-radius: 25px;
+        border: 1px solid #f88634;
+        color: #f88634;
+    }
+
+    .form-btn-register {
+        width: 250px;
+        height: 40px
+    }
+
+    .form-register {
+        width: 250px;
+        height: 40px;
+        border-radius: 25px;
+        border: 1px solid #f88634;
+        color: #f88634;
+    }
+}
+
+@media(max-width:768px) {
+    .cara-img {
+        height: 50vh;
+        background-size: cover;
+    }
+
+    .privacy {
+        margin-top: 30px;
+        margin-bottom: 10px
+    }
+}
+
+@media(max-width:989px) {
+    .cara-img {
+        height: 70vh;
+        background-size: cover;
+    }
+}
+
+@media(max-width:425px) {
+    .cara-img {
+        height: 38vh;
+        background-size: cover;
+    }
+
+    .caption-header {
+        font-size: 20px;
+    }
+
+    .caption-content {
+        display: none;
+    }
+}
+
+span #Email-error {
+    color: red
+}
+
+span #Password-error {
+    color: red
+}

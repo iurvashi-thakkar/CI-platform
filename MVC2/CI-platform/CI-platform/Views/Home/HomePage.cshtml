@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<partial name="_MissionFilter" />
+
+<div class="container mt-4">
+        <div class="row d-flex">
+            <div class="col-lg-9 col-md-7 col-12">
+                <h3>Explore 72 missions</h3>
+            </div>
+            <div class="col-md-3 col-lg-2 sort">
+                <div class="dropdown">
+                    <div class="p-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border:1px solid black">
+                        Sort BY
+                    </div>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Newest</a></li>
+                        <li><a class="dropdown-item" href="#">Oldest</a></li>
+            <li><a class="dropdown-item" href="#">Lower Available seats</a></li>
+                      </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-2 d-flex">
+                <button id="grid" class="btn-view">
+                    
+                    <img src="~/images/grid.png" alt="gridlogo" />
+
+                </button>
+                <button id="list" class="btn-view">
+
+                       <img src="~/images/list.png" alt="gridlogo" >
+                </button>
+          </div>
+
+    </div>
+    </div>
+@*here from card component*@
+<partial name="_GridView" />
+<partial name="_ListView"/>
+
+<div class="container d-flex justify-content-center mt-5">
+    <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+       @* <span class="sr-only">Previous</span>*@
+      </a>
+    </li>
+    <li class="page-item mx-3"><a class="page-link" href="#">1</a></li>
+    <li class="page-item "><a class="page-link" href="#">2</a></li>
+    <li class="page-item mx-3"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        @*<span class="sr-only">Next</span>*@
+      </a>
+    </li>
+  </ul>
+</nav>
+</div>
+
+
+<div class="container-fluid mt-5">
+    <hr />
+    
+</div>
+
+    <div class="container mb-3">
+         <a >Privacy Policy</a>
+    </div>
+   
+<script src="~/js/site.js">
+    
+</script>
