@@ -1,6 +1,9 @@
-﻿<div class="container mt-4" id="partialGrid">
-<div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 g-4">
-            @for(int j = 0; j < 9; j++)
+﻿
+<div class="container mt-4" id="partialGrid">
+ @* @for(int k = 0; k < 3; k++)
+    { *@
+    <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 g-4 mt-3">
+           @for(int j = 0; j < 9; j++)
             {
                <div class="col">
     <div class="card h-100">
@@ -93,21 +96,16 @@ opacity: 1;color: #414141">From 10/01/2019 until 25/02/2019</button>
       </div>
       <div class="card-footer d-flex justify-content-center">
         <a asp-controller="Mission" asp-action="MissionDetail">
-            <button   style="width: 133px;
-height: 48px;
-background: #FFFFFF 0% 0% no-repeat padding-box;
-border: 2px solid #F88634;
-border-radius: 24px;
-opacity: 1;"><span style="text-align: left;
+            <button class="grid-card-btn"><span style="text-align: left;
 letter-spacing: 0px;
 color: #F88634">Apply</span>
         </button></a>
       </div>
     </div>
   </div>   
-            }
+           }
           
 </div>
 
-
+@*}*@
 </div>

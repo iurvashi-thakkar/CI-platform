@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UGZtKmxw3jtlUwNIDVN6+FNPUjbN8Y0l8rpfI3crTAM=",
+  "Hash": "aQa6rbv64b/ZZquGs+HyKvJxzmXS5HdNAH1dV7/z4kg=",
   "Source": "CI-platform",
   "BasePath": "_content/CI-platform",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\css\\swiper.css",
+      "SourceId": "CI-platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\",
+      "BasePath": "_content/CI-platform",
+      "RelativePath": "css/swiper.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\swiper.css"
     },
     {
       "Identity": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\favicon.ico",
@@ -2021,6 +2038,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\js\\slider.js",
+      "SourceId": "CI-platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\",
+      "BasePath": "_content/CI-platform",
+      "RelativePath": "js/slider.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\slider.js"
     },
     {
       "Identity": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

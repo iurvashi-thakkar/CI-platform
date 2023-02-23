@@ -51,3 +51,21 @@ mediaCheck(mediawidth);
 
 // Add the match function as a listener for state changes:
 mediawidth.addListener(mediaCheck);
+
+
+function grid_list_btn_hide(){
+
+}
+function grid_list_btn_Check(x) {
+    if (x.matches) {
+        gridbtn.classList.add("d-none");
+        listbtn.classList.add("d-none");
+    } else {
+        gridbtn.classList.add("d-block");
+        listbtn.classList.add("d-block");
+    }
+}
+
+let grid_list_btn = window.matchMedia("(max-width: 700px)")
+grid_list_btn_Check(grid_list_btn);
+grid_list_btn.addEventListener(grid_list_btn_Check)
