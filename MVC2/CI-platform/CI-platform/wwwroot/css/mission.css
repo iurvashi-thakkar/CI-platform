@@ -39,9 +39,18 @@
     border: 2px solid #E8E8E8;
     width: 140px;
     height: 130px;
+  
+}
+.header-card-text {
+    flex-direction: column;
+    justify-content:space-around;
+}
+.mission-info-card {
+    flex-direction: row;
+    justify-content:space-between;
 }
 .submit-btn {
-    border:1px solid #F88634;
+    border: 1px solid #F88634;
     color: #F88634;
     width: 196px;
     height: 46px;
@@ -115,15 +124,24 @@
     
 }
 
-@media (max-width:474px) {
+@media (max-width:520px) {
     .fav-btn{
         flex-direction:column;
         align-items:center;
       
     }
-    /*.seat-flex{
-        flex-direction:row;
-    }*/
+   .mission-info-card{
+       flex-direction:column;
+       justify-content:center;
+       align-items:center;
+       
+   }
+   .mission-info-card .header-card{
+       width:100%;
+   }
+    .mission-info-card .header-card {
+        width: 100%;
+    }
     
 }
 

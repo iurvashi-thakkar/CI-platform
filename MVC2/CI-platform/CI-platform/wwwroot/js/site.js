@@ -3,25 +3,25 @@ let listbtn = document.getElementById('list');
 let gbtn = document.getElementById('partialGrid');
 let lbtn = document.getElementById('partialList');
 
-gridbtn.addEventListener('click', grid);
 listbtn.addEventListener('click', list);
-
-function grid() {
-    lbtn.classList.add('d-none');
-    gbtn.classList.remove('d-none');
-
-    gridbtn.classList.add("selected-btn");
-    listbtn.classList.remove("selected-btn");
-    console.log(gridbtn);
-}
-
-
+gridbtn.addEventListener('click', grid);
 function list() {
     gbtn.classList.add('d-none');
     lbtn.classList.remove('d-none');
     listbtn.classList.add("selected-btn");
     gridbtn.classList.remove("selected-btn");
 }
+function grid() {
+    
+    gbtn.classList.remove('d-none');
+    lbtn.classList.add('d-none');
+    gridbtn.classList.add("selected-btn");
+    listbtn.classList.remove("selected-btn");
+   
+}
+
+
+
 
 //let mediawidth = window.matchMedia(max-width:1023px);
 //mediawidth.addListener(mediaCheck);
@@ -38,9 +38,10 @@ function list() {
 function mediaCheck(x) {
     if (x.matches) {
         grid();
-    } else {
-        list();
     }
+    //else {
+    //    list();
+    //}
 }
 
 // Create a MediaQueryList object
@@ -53,19 +54,19 @@ mediaCheck(mediawidth);
 mediawidth.addListener(mediaCheck);
 
 
-function grid_list_btn_hide(){
+//function grid_list_btn_hide(){
 
-}
-function grid_list_btn_Check(x) {
-    if (x.matches) {
-        gridbtn.classList.add("d-none");
-        listbtn.classList.add("d-none");
-    } else {
-        gridbtn.classList.add("d-block");
-        listbtn.classList.add("d-block");
-    }
-}
+//}
+//function grid_list_btn_Check(x) {
+//    if (x.matches) {
+//        gridbtn.classList.add("d-none");
+//        listbtn.classList.add("d-none");
+//    } else {
+//        gridbtn.classList.add("d-block");
+//        listbtn.classList.add("d-block");
+//    }
+//}
 
-let grid_list_btn = window.matchMedia("(max-width: 700px)")
-grid_list_btn_Check(grid_list_btn);
-grid_list_btn.addEventListener(grid_list_btn_Check)
+//let grid_list_btn = window.matchMedia("(max-width: 700px)")
+//grid_list_btn_Check(grid_list_btn);
+//grid_list_btn.addEventListener(grid_list_btn_Check)

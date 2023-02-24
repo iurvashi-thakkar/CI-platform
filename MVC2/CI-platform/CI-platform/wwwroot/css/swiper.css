@@ -1,5 +1,5 @@
 ﻿.MultiCarousel {
-   /* float: left;*/
+    float: left;
     overflow: hidden;
     padding: 15px;
     width: 100%;
@@ -8,7 +8,7 @@
 
     .MultiCarousel .MultiCarousel-inner {
         transition: 1s ease all;
-       /* float: left;*/
+        float: left;
     }
 
         .MultiCarousel .MultiCarousel-inner .item {
