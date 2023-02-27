@@ -287,3 +287,7 @@ C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI-platform\bin\Debug\net6.
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI-platform\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI-platform\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI-platform\obj\Debug\net6.0\CI-platform.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI-platform\bin\Debug\net6.0\CI_Platform.Entity.dll
+C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI-platform\bin\Debug\net6.0\CI_Platform.Repository.dll
+C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI-platform\bin\Debug\net6.0\CI_Platform.Entity.pdb
+C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI-platform\bin\Debug\net6.0\CI_Platform.Repository.pdb
