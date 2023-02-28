@@ -45,7 +45,22 @@
       "ProjectGuid": "25e53c4a-dab8-408e-9438-1534f0a2984a",
       "DisplayName": "CI_Platform.Repository",
       "ColorIndex": 7
+    },
+    "a26f3cca-e8ae-4123-b1f5-7ec4ef139de7": {
+      "ProjectGuid": "a26f3cca-e8ae-4123-b1f5-7ec4ef139de7",
+      "DisplayName": "CI_Platform.Entity",
+      "ColorIndex": 8
+    },
+    "0ee0a808-697d-463e-ae9a-b3e844aca95c": {
+      "ProjectGuid": "0ee0a808-697d-463e-ae9a-b3e844aca95c",
+      "DisplayName": "CI_Platform.Repository",
+      "ColorIndex": 9
+    },
+    "919fd655-f067-4ba2-b932-d926e85dd6b4": {
+      "ProjectGuid": "919fd655-f067-4ba2-b932-d926e85dd6b4",
+      "DisplayName": "Script Documents",
+      "ColorIndex": 10
     }
   },
-  "NextColorIndex": 8
+  "NextColorIndex": 11
 }

@@ -1,6 +1,10 @@
 
 //using CI_platform.Entities.DataModels;
+using CI_platform.Models;
+
 using CI_Platform.Entity.DataModels;
+using CI_Platform.Repository.Interface;
+using CI_Platform.Repository.Repository;
 using Microsoft.EntityFrameworkCore;
 
 //using CI_platform.Repository.Repository;
@@ -11,10 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
 //    builder.Configuration.GetConnectionString("DefaultConnection")));
-
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.Configure<SMTPConfigModel>(builder.Configuration.GetSection("SMTPConfig"));
 var app = builder.Build();
 
 

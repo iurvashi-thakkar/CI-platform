@@ -1,61 +1,167 @@
 ﻿//using CI_platform.Entities.DataModels;
 using CI_platform.Models;
+using CI_platform.Service;
 using CI_Platform.Entity.DataModels;
+using CI_Platform.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using MimeKit;
+using MailKit.Net.Smtp;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
+//using System.Net.Mail;
+using System.Security.Claims;
+
+using System.Text;
 
 
 namespace CI_platform.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger _logger;
+        private readonly IConfiguration _config;
+        //private readonly IEmailService _emailService;
+        private readonly SMTPConfigModel _smtpConfigModel;  
         //private readonly ilogger<homecontroller> _logger;
 
         //public homecontroller(ILogger<homecontroller> logger)
         //{
         //    _logger = logger;
         //}
-        public HomeController(ApplicationDbContext db)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork,IOptions<SMTPConfigModel> smtpConfigModel, IConfiguration config)
         {
-            this._db = db;
+            _unitOfWork = unitOfWork;
+            _config = config;
+            this._logger = logger;
+            //_emailService = emailService;
+            this._smtpConfigModel = smtpConfigModel.Value;
         }
 
         public IActionResult Index()
         {
+
             return View();
         }
+        //public async Task<ViewResult> Index()
+        //{
+        //    UserEmailOptions options = new UserEmailOptions
+        //    {
 
+        //        Body = "Abcd",
+        //        Subject = "Ci-platform",
+        //        ToEmails = new List<string>() { "test@gmail.com" }
+        //    };
+        //    await _emailService.SendTestEmail(options);
+        //    return View();
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(User obj)
+        public IActionResult Index(string email,string password)
         {
             if (ModelState.IsValid)
             {
-                var user = _db.Users.FirstOrDefault(u => u.Email == obj.Email);
+                var user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
 
                 if (user == null)
                 {
                     TempData["error"] = "Invalid User!!";
-                    return View(obj);
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    if (user.Password == obj.Password)
+                    if (user.Password == password)
                     {
                         TempData["success"] = "Logged In Successfully";
                         return RedirectToAction("HomePage");
                     }
                 }
             }
-            return View(obj);
+            return RedirectToAction("Index");
         }
         public IActionResult ForgotPassword()
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            var user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
+            if (user == null)
+            {
+                TempData["error"] = "User is not Registered";
+                return View();
+            }
+            var token = GenerateToken(user);
+            Console.WriteLine(token);
+            _unitOfWork.PasswordReset.Add(new PasswordReset
+            {
+                Email = email,
+                Token = token
+            });
+            _unitOfWork.Save();
+            var resetPasswordLink = Url.Action("ResetPassword", "Home", new { token = token }, Request.Scheme);
+            UserEmailOptions userEmailOptions = new UserEmailOptions()
+            {
+                Subject = "Reset Password Link",
+                Body = "<a href='" + resetPasswordLink + "' >" + resetPasswordLink + "</a>"
+            };
+            SendEmail(email, userEmailOptions);
+            //await SendPlainTextEmail(email);
+            //if (token.Payload.Exp < DateTime.UnixEpoch.Second)
+            //{
+
+            //}
+
+            TempData["Success"] = "Email Sent Successfully";
+
+            return RedirectToAction("Index");
+        }
+        private string GenerateToken(User user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Email,user.Email)
+            };
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+                _config["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(15),
+                signingCredentials: credentials);
+
+
+            //return new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+
+        }
+
+        // To Send Email
+        public void SendEmail(string email, UserEmailOptions userEmailOptions)
+        {
+            var message = new MimeMessage();
+
+            message.From.Add(new MailboxAddress(_smtpConfigModel.SenderDisplayName, _smtpConfigModel.SenderAddress));
+            message.To.Add(new MailboxAddress("User", email));
+
+            message.Subject = userEmailOptions.Subject;
+            var bodyBuilder = new BodyBuilder();
+
+            bodyBuilder.HtmlBody = userEmailOptions.Body;
+            message.Body = bodyBuilder.ToMessageBody();
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect(_smtpConfigModel.host, _smtpConfigModel.Port, _smtpConfigModel.EnableSSL);
+                smtp.Authenticate(_smtpConfigModel.UserName, _smtpConfigModel.Password);
+                smtp.Send(message);
+                smtp.Disconnect(true);
+            }
+        }
+
         public IActionResult ResetPassword()
         {
             return View();
@@ -68,16 +174,25 @@ namespace CI_platform.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(User userData)
         {
+            var useremail = _unitOfWork.User.GetFirstOrDefault(u => u.Email == userData.Email);
 
             try
             {
+                //Console.WriteLine(userData.confirmPassword)
                 if (ModelState.IsValid)
                 {
-                    _db.Users.Add(userData);
-                    _db.SaveChanges();
-                    TempData["success"] = "Employee added successfully";
-                    return RedirectToAction("Index");
-
+                    if (useremail == null)
+                    {
+                        _unitOfWork.User.Add(userData);
+                        _unitOfWork.Save();
+                        TempData["success"] = "Employee added successfully";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "This Email User is already registered.";
+                        return View();
+                    }
 
                 }
                 else

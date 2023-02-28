@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CI_Platform.Entity.DataModels;
 
@@ -11,10 +12,12 @@ public partial class User
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }
-
+    [EmailAddress(ErrorMessage ="Please Enter valid mail address")]
     public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+
+
 
     public long? PhoneNumber { get; set; }
 
