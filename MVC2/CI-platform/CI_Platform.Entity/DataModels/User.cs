@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CI_Platform.Entity.DataModels;
 
@@ -12,13 +13,17 @@ public partial class User
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }
-    [EmailAddress(ErrorMessage ="Please Enter valid mail address")]
+
     public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
 
+    [NotMapped]
+    [Compare("Password")]
+    public string ConfirmPassword { get; set; } = null!;
 
-
+    //[MaxLength(10)]
+    //[MinLength(10)]
     public long? PhoneNumber { get; set; }
 
     public string? Avatar { get; set; }
@@ -29,9 +34,9 @@ public partial class User
 
     public string? Department { get; set; }
 
-    public long CityId { get; set; } = 1;
+    public long CityId { get; set; }
 
-    public long CountryId { get; set; } = 1;
+    public long CountryId { get; set; }
 
     public string? ProfileText { get; set; }
 

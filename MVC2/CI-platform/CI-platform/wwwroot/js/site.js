@@ -19,6 +19,16 @@ function grid() {
     listbtn.classList.remove("selected-btn");
    
 }
+function grid1() {
+
+    gbtn.classList.remove('d-none');
+    lbtn.classList.add('d-none');
+    gridbtn.classList.add("selected-btn");
+    listbtn.classList.remove("selected-btn");
+    gridbtn.remove();
+    listbtn.remove();
+
+}
 
 
 
@@ -37,11 +47,11 @@ function grid() {
 
 function mediaCheck(x) {
     if (x.matches) {
+        grid1();
+    }
+    else {
         grid();
     }
-    //else {
-    //    list();
-    //}
 }
 
 // Create a MediaQueryList object

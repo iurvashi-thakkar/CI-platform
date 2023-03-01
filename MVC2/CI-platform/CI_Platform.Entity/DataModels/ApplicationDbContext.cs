@@ -6,7 +6,7 @@ namespace CI_Platform.Entity.DataModels;
 
 public partial class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext ()
+    public ApplicationDbContext()
     {
     }
 
@@ -630,10 +630,14 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<PasswordReset>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("password_reset");
+            entity.HasKey(e => e.Token).HasName("PK__password__CA90DA7B82B0E3F5");
 
+            entity.ToTable("password_reset");
+
+            entity.Property(e => e.Token)
+                .HasMaxLength(400)
+                .IsUnicode(false)
+                .HasColumnName("token");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -642,10 +646,6 @@ public partial class ApplicationDbContext : DbContext
                 .HasMaxLength(191)
                 .IsUnicode(false)
                 .HasColumnName("email");
-            entity.Property(e => e.Token)
-                .HasMaxLength(191)
-                .IsUnicode(false)
-                .HasColumnName("token");
         });
 
         modelBuilder.Entity<Skill>(entity =>

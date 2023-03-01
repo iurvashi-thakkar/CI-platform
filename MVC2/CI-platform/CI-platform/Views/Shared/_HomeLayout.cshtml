@@ -48,9 +48,30 @@
               </ul>
             </div>
             <div class="right-div d-flex">
-                <button class="border-none bg-white m-2 me-4">
+               @* <button class="border-none bg-white m-2 me-4">
                     <img src="~/images/bell.png"/>
-                </button>
+                     <span class="top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            4
+                        </span>
+                </button>*@
+
+                  <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                       
+                    <img src="~/images/bell.png"/>
+                     <span class="top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            4
+                        </span>
+              
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Logout</a></li>
+                    </ul>
+                </div>
+
+
                 <div class="dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span>

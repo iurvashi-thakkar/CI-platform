@@ -1,4 +1,5 @@
-﻿@model CI_Platform.Entity.DataModels.User;
+﻿@using CI_Platform.Entity.DataModels
+@model User
 @{
     ViewData["Title"] = "Register";
      //var errorMessage = TempData["errorMessage"]?.ToString();
@@ -97,15 +98,17 @@
                           <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="mb-2 form-floating">
-                          <input type="password" class="form-control form-btn-register" id="exampleInputPassword" placeholder="Password" asp-for="Password">
+                          <input type="password" class="form-control form-btn-register"  placeholder="Password" asp-for="Password" id="password" />
                           <label for="exampleInputPassword" class="form-label">Password</label>
                           <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
-                        @*<div class="mb-4 form-floating">
-                          <input type="text" class="form-control form-btn-register" id="exampleInputconfirmPassword" placeholder="Confirm Password">
+                        <div class="mb-4 form-floating">
+                          <input type="password" class="form-control form-btn-register"  placeholder="Confirm Password" id="confirmpassword" asp-for="ConfirmPassword"/>
                           <label for="exampleInputconfirmPassword" class="form-label">Confirm Password</label>
+                          <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                       
 
-                        </div>*@
                        
                      <button type="Submit" class="btn btn-outline-warning form-register mb-3 ">Register</button>
                   </form>
@@ -125,5 +128,22 @@
         </div>
     </div>
     </div>
+  <script>
+       
+//    function checkPasswordMatch() {
+//    var password = document.getElementById("password").value;
+//    var confirmPassword = document.getElementById("confirmpassword").value;
+//    console.log(password);
+//       if (password != confirmPassword)
+//        document.getElementById("cnf-msg").innerHTML("Passwords do not match!");
+//    else
+//        document.getElementById("cnf-msg").innerHTML("Passwords match.");
+       
+//}
+
+//$(document).ready(function () {
+//   $("#password, #confirmpassword").keyup(checkPasswordMatch);
+//});
+    </script>
 
 </body>

@@ -14,7 +14,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 using System.Text;
-
+using MailKit.Security;
+using Microsoft.EntityFrameworkCore;
 
 namespace CI_platform.Controllers
 {
@@ -62,13 +63,14 @@ namespace CI_platform.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(string email,string password)
         {
+            Console.WriteLine(email);
             if (ModelState.IsValid)
             {
                 var user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
 
-                if (user == null)
+                if (user == null || (user.Password != password))
                 {
-                    TempData["error"] = "Invalid User!!";
+                    TempData["error"] = "Invalid Username or password!!";
                     return RedirectToAction("Index");
                 }
                 else
@@ -87,39 +89,35 @@ namespace CI_platform.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(string email)
+        public IActionResult ForgotPassword(string email)
         {
-            var user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
-            if (user == null)
-            {
-                TempData["error"] = "User is not Registered";
-                return View();
-            }
-            var token = GenerateToken(user);
-            Console.WriteLine(token);
+            
+                var user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
+
+                if (user == null)
+                {
+                    TempData["error"] = "User not registered";
+                    return View();
+                }
+                var token = GenerateToken(user);
+                Console.WriteLine(token);
+       
             _unitOfWork.PasswordReset.Add(new PasswordReset
-            {
-                Email = email,
-                Token = token
-            });
-            _unitOfWork.Save();
+                    {
+                        Email = email,
+                        Token = token
+                    });
+                 _unitOfWork.Save();
             var resetPasswordLink = Url.Action("ResetPassword", "Home", new { token = token }, Request.Scheme);
-            UserEmailOptions userEmailOptions = new UserEmailOptions()
-            {
-                Subject = "Reset Password Link",
-                Body = "<a href='" + resetPasswordLink + "' >" + resetPasswordLink + "</a>"
-            };
-            SendEmail(email, userEmailOptions);
-            //await SendPlainTextEmail(email);
-            //if (token.Payload.Exp < DateTime.UnixEpoch.Second)
-            //{
-
-            //}
-
-            TempData["Success"] = "Email Sent Successfully";
-
-            return RedirectToAction("Index");
-        }
+                UserEmailOptions userEmailOptions = new UserEmailOptions()
+                {
+                    Subject = "Reset Password Link",
+                    Body = "<a href='" + resetPasswordLink + "' >" + resetPasswordLink + "</a>"
+                };
+                SendEmail(email, userEmailOptions);
+                TempData["Success"] = "Mail Sent sucessfully";
+               return RedirectToAction("Index");
+            }
         private string GenerateToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -162,10 +160,7 @@ namespace CI_platform.Controllers
             }
         }
 
-        public IActionResult ResetPassword()
-        {
-            return View();
-        }
+       
         public IActionResult Register()
         {
             return View();
@@ -209,6 +204,54 @@ namespace CI_platform.Controllers
             }
 
         }
+
+        public IActionResult ResetPassword(string token)
+        {
+            var userToken = _unitOfWork.PasswordReset.GetFirstOrDefault(u => u.Token == token);
+            if (userToken == null)
+            {
+                return BadRequest("Invalid Session");
+            }
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            var tokenObj = handler.ReadJwtToken(token);
+            var email = tokenObj.Payload.Claims.ToList()[0].Value;
+            if (tokenObj.Payload.Exp < DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+            {
+                _unitOfWork.PasswordReset.Remove(userToken);
+                _unitOfWork.Save();
+                return BadRequest("Reset Password Link Expired!");
+            }
+            ViewBag.Email = new { email = email, token = token };
+            return View();
+        }
+
+        // POST
+        [HttpPost]
+        public IActionResult ResetPasswordPost(ResetPassword obj)
+        {
+            if (obj.Password != obj.ConfirmPassword)
+            {
+                var parameters = new { token = obj.Token };
+                TempData["error"] = "Password and Confirm paswword is not same";
+                return RedirectToAction("ResetPassword", parameters);
+            }
+            var userToken = _unitOfWork.PasswordReset.GetFirstOrDefault(u => u.Email == obj.Email && u.Token == obj.Token);
+            if (userToken == null)
+            {
+                TempData["error"] = "Invalid Reset Password Link";
+                return RedirectToAction("ForgotPassword");
+            }
+            var userObj = _unitOfWork.User.GetFirstOrDefault(u => u.Email == obj.Email);
+            var encodedPass = obj.Password;
+            _unitOfWork.User.UpdatePassword(userObj, encodedPass);
+            _unitOfWork.PasswordReset.Remove(userToken);
+            _unitOfWork.Save();
+            TempData["success"] = "Password Changed Successfully, Please Login Again!!";
+            return RedirectToAction("Index");
+        }
+
+
+
         public IActionResult HomePage()
         {
             return View();

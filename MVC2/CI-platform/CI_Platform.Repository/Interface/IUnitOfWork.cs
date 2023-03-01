@@ -10,6 +10,8 @@ namespace CI_Platform.Repository.Interface
     {
         public IUserRepository User{ get; }
         public IPasswordResetRepository PasswordReset{ get; }
+       
+
         void Save();
     }
 }

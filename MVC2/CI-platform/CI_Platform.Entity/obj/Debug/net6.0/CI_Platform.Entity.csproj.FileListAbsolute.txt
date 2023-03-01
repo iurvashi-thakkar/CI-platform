@@ -3,7 +3,6 @@ C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\bin\Debu
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\bin\Debug\net6.0\CI_Platform.Entity.dll
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\bin\Debug\net6.0\ref\CI_Platform.Entity.dll
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\bin\Debug\net6.0\CI_Platform.Entity.pdb
-C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.csproj.AssemblyReference.cache
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.AssemblyInfoInputs.cache
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.AssemblyInfo.cs
@@ -12,3 +11,4 @@ C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debu
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debug\net6.0\ref\CI_Platform.Entity.dll
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.pdb
 C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.genruntimeconfig.cache
+C:\Users\pca173\Desktop\CI-Platform\MVC2\CI-platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.csproj.AssemblyReference.cache
