@@ -43,7 +43,12 @@ namespace CI_platform.Controllers
 
         public IActionResult Index()
         {
-
+            var sessionValue = HttpContext.Session.GetString("UserEmail");
+            if (!String.IsNullOrEmpty(sessionValue))
+            {
+                Console.WriteLine(sessionValue);
+                return RedirectToAction(sessionValue);
+            }
             return View();
         }
         //public async Task<ViewResult> Index()
@@ -61,7 +66,7 @@ namespace CI_platform.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(string email,string password)
+        public IActionResult LoggedIn(string email,string password)
         {
             Console.WriteLine(email);
             if (ModelState.IsValid)
@@ -78,6 +83,7 @@ namespace CI_platform.Controllers
                     if (user.Password == password)
                     {
                         TempData["success"] = "Logged In Successfully";
+                        HttpContext.Session.SetString("UserEmail", user.Email);
                         return RedirectToAction("HomePage");
                     }
                 }
@@ -252,10 +258,40 @@ namespace CI_platform.Controllers
 
 
 
-        public IActionResult HomePage()
+        public IActionResult HomePage(long id=0)
         {
+            var sessionValue = HttpContext.Session.GetString("UserEmail");
+            if (String.IsNullOrEmpty(sessionValue))
+            {
+                TempData["error"] = "Session Expired!\nPlease Login Again!";
+                return RedirectToAction("Index");
+            }
+            var user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == sessionValue);
+            ViewBag.User = user;
+            List<Country> countryList = _unitOfWork.Country.GetAll().ToList();
+            ViewBag.Countries = countryList;
+            if (id != 0)
+            {
+                List<City> cityList = _unitOfWork.City.GetAll().Where(c => c.CountryId == id).ToList();
+                ViewBag.Cities = cityList;
+            }
+            else
+            {
+                List<City> cityList = _unitOfWork.City.GetAll().Where(c => c.Name != "Undefined").ToList();
+                ViewBag.Cities = cityList;
+            }
+            List<MissionTheme> themeList = _unitOfWork.MissionTheme.GetAll().ToList();
+            ViewBag.Themes = themeList;
             return View();
         }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.SetString("UserEmail", "");
+            return RedirectToAction("Index");
+        }
+
+
+
         public IActionResult StoryListing()
         {
             return View();

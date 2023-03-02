@@ -14,11 +14,19 @@ namespace CI_Platform.Repository.Repository
         public IUserRepository User { get; private set; }
         public IPasswordResetRepository PasswordReset { get; private set; }
 
+        public ICountryRepository Country { get; private set; }
+        public ICityRepository City { get; private set; }
+
+        public IMissionThemeRepository MissionTheme { get; private set; }
+
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             User = new UserRepository(_db);
             PasswordReset = new PasswordResetRepository(_db);
+            Country = new CountryRepository(_db);
+            City = new CityRepository(_db);
+            MissionTheme = new MissionThemeRepository(_db);
         }
 
         public void Save()

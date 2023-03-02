@@ -21,22 +21,17 @@
                                Country
                             </a> 
                             <ul class="dropdown-menu scrollable-menu" aria-labelledby="profileDropdown" role="menu">
-                                <li><a class="dropdown-item" href="#">Canada</a></li>
-                                <li><a class="dropdown-item" href="#">England</a></li>
-                                <li><a class="dropdown-item" href="#">India</a></li>
-                                <li><a class="dropdown-item" href="#">USA</a></li>
-                                <li><a class="dropdown-item" href="#">Canada</a></li>
-                                <li><a class="dropdown-item" href="#">England</a></li>
-                                <li><a class="dropdown-item" href="#">India</a></li>
-                                <li><a class="dropdown-item" href="#">USA</a></li>
-                                <li><a class="dropdown-item" href="#">Canada</a></li>
-                                <li><a class="dropdown-item" href="#">England</a></li>
-                                <li><a class="dropdown-item" href="#">India</a></li>
-                                <li><a class="dropdown-item" href="#">USA</a></li>
-                                <li><a class="dropdown-item" href="#">Canada</a></li>
-                                <li><a class="dropdown-item" href="#">England</a></li>
-                                <li><a class="dropdown-item" href="#">India</a></li>
-                                <li><a class="dropdown-item" href="#">USA</a></li>
+                               <form>
+                                    <li><button class="dropdown-item countries" value="All" asp-controller="Home" asp-action="HomePage" asp-route-id="0">All</button></li>
+                                    @foreach(var country in ViewBag.Countries)
+                                    {
+                                        <li>
+                                            <button type="submit" class="dropdown-item countries" value="@country.Name" asp-controller="Home" asp-action="HomePage" asp-route-id="@country.CountryId">
+                                                @country.Name
+                                            </button>
+                                        </li>
+                                    }
+                                </form>
                             </ul>
                         </div>
                     </div>
@@ -46,30 +41,18 @@
                                City
                             </a>
                             <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="cityDropdown">
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Delhi" id="city1">
-                                        <label class="form-check-label" for="city1">Delhi</label>
-                                    </div>
-                                </li> 
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Chennai" id="city2">
-                                        <label class="form-check-label" for="city2">Chennai</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Ahmedabad" id="city3">
-                                        <label class="form-check-label" for="city3">Ahmedabad</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Mumbai" id="city4">
-                                        <label class="form-check-label" for="city4">Mumbai</label>
-                                    </div>
-                                </li>
+                              
+                                 @*   <li><button class="dropdown-item countries" value="All" asp-controller="Home" asp-action="HomePage" asp-route-id="0">All</button></li>*@
+                                    @foreach(var city in ViewBag.Cities)
+                                    {
+                                        <li>
+                                         <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name">
+                                            <label class="form-check-label" for="@city.Name">@city.Name</label>
+                                        </div>
+                                        </li>
+                                    }
+                               
                             </ul>
                         </div>
                     </div>
@@ -79,38 +62,15 @@
                                Theme
                             </a>
                             <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="themeDropdown">
-                                <li>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="theme1" id="theme1">
-                                      <label class="form-check-label" for="theme1">
-                                        theme1
-                                      </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="theme2" id="theme2">
-                                      <label class="form-check-label" for="theme2">
-                                        theme2
-                                      </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="theme3" id="theme3">
-                                      <label class="form-check-label" for="theme3">
-                                        theme3
-                                      </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="theme4" id="theme4">
-                                      <label class="form-check-label" for="theme4">
-                                        theme4
-                                      </label>
-                                    </div>
-                                </li>
+                                @foreach(var theme in ViewBag.Themes)
+                                    {
+                                        <li>
+                                         <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="@theme.Title" id="@theme.Title">
+                                            <label class="form-check-label" for="@theme.Title">@theme.Title</label>
+                                        </div>
+                                        </li>
+                                    }
                             </ul>
                         </div>
                     </div>

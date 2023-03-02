@@ -11,7 +11,11 @@ namespace CI_Platform.Repository.Interface
         public IUserRepository User{ get; }
         public IPasswordResetRepository PasswordReset{ get; }
        
+        public ICountryRepository Country{ get; }
 
+        public ICityRepository City{ get; }
+
+        public IMissionThemeRepository MissionTheme{ get; }
         void Save();
     }
 }
