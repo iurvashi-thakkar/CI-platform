@@ -1,5 +1,12 @@
-﻿
-<div class="shadow-sm border-bottom">
+﻿ <style>
+       #filter-items {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        color: #757575;
+    }
+   </style>
+<div class="shadow-sm border-bottom"> 
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-sm-12 p-3 border-start border-end d-inline-flex">
@@ -7,7 +14,7 @@
                   <span class="input-group-text bg-white border-none" id="seacrhIcon">
                       <img src="~/images/search.png" />
                   </span>
-                  <input type="search" class="form-control border-none" placeholder="Search" aria-label="Search" aria-describedby="seacrhIcon" id="searchField">
+                  <input type="search" class="form-control border-none" placeholder="Search" aria-label="Search" aria-describedby="seacrhIcon" id="searchField" onkeyup="search()">
                 </div>
                 <button class="img-filter border-none bg-white">
                     <img src="~/images/filter.png" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu"/>
@@ -22,11 +29,11 @@
                             </a> 
                             <ul class="dropdown-menu scrollable-menu" aria-labelledby="profileDropdown" role="menu">
                                <form>
-                                    <li><button class="dropdown-item countries" value="All" asp-controller="Home" asp-action="HomePage" asp-route-id="0">All</button></li>
+                                    <li><button class="dropdown-item countries" value="All" asp-controller="Mission" asp-action="HomePage" asp-route-id="0">All</button></li>
                                     @foreach(var country in ViewBag.Countries)
                                     {
                                         <li>
-                                            <button type="submit" class="dropdown-item countries" value="@country.Name" asp-controller="Home" asp-action="HomePage" asp-route-id="@country.CountryId">
+                                            <button type="submit" class="dropdown-item countries" value="@country.Name" asp-controller="Mission" asp-action="HomePage" asp-route-id="@country.CountryId">
                                                 @country.Name
                                             </button>
                                         </li>
@@ -46,8 +53,8 @@
                                     @foreach(var city in ViewBag.Cities)
                                     {
                                         <li>
-                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name">
+                                         <div class="form-check" id="drop-city">
+                                            <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name" onclick="isCheckedById('@city.Name')">
                                             <label class="form-check-label" for="@city.Name">@city.Name</label>
                                         </div>
                                         </li>
@@ -66,7 +73,7 @@
                                     {
                                         <li>
                                          <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="@theme.Title" id="@theme.Title">
+                                            <input class="form-check-input" type="checkbox" value="@theme.Title" id="@theme.Title" onclick="isCheckedById('@theme.Title')" >
                                             <label class="form-check-label" for="@theme.Title">@theme.Title</label>
                                         </div>
                                         </li>
@@ -80,34 +87,15 @@
                                Skills
                             </a>
                             <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="skillsDropdown">
-                                <li>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="skill1" id="skill1">
-                                      <label class="form-check-label" for="skill1">skill1</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="skill2" id="skill2">
-                                      <label class="form-check-label" for="skill2">skill2</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="skill3" id="skill3">
-                                      <label class="form-check-label" for="skill3">
-                                        skill3
-                                      </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="skill4" id="skill4">
-                                      <label class="form-check-label" for="skill4">
-                                        skill4
-                                      </label>
-                                    </div>
-                                </li>
+                               @foreach(var skill in ViewBag.Skills)
+                                    {
+                                        <li>
+                                         <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="@skill.SkillName" id="@skill.SkillName" onclick="isCheckedById('@skill.SkillName')">
+                                            <label class="form-check-label" for="@skill.SkillName">@skill.SkillName</label>
+                                        </div>
+                                        </li>
+                                    }
                             </ul>
                         </div>
                     </div>
@@ -266,3 +254,57 @@
     </div>
 </div>
 
+@* <div class="form-check" id="drop-city">
+                                            <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name" name="@city.Name" onclick="isCheckedById('@city.Name')">
+                                            <label class="form-check-label" for="@city.Name">@city.Name</label>
+                                        </div>*@
+
+<div id="filter-items">
+ 
+</div>
+ 
+<script>
+    arr=new Set([]);
+    function isCheckedById(id) {
+         
+         checkbox = document.getElementById(id);
+         console.log(id);
+         var k=document.getElementById("filter-items");
+         if(event.target.checked){
+            arr.add(event.target.value);   
+            console.log(arr);
+         }  
+         else{
+             arr.delete(event.target.value);
+         }
+         console.log(arr);
+         var temp="";
+         for(const item of arr){
+             console.log("hello");
+             temp += `<span class="rounded-pill alert border-dark px-2 py-0 m-2">
+                                    ${item}
+                                       <button type="button" class="btn-close" value="${item}" aria-label="Close" data-bs-dismiss="alert"></button>
+                               </span>`;
+         }
+         k.innerHTML=temp;
+    }
+
+    function search() {
+  // Declare variables
+  var input, filter;
+  input = document.getElementById("searchField");
+  filter = input.value.toUpperCase();
+  cards = document.getElementsByClassName("card-div")
+  titles = document.getElementsByClassName("card-title");
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < cards.length; i++) {
+    a = titles[i];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      cards[i].classList.remove("d-none");
+    } else {
+      cards[i].classList.add("d-none");
+    }
+  }
+}
+</script>

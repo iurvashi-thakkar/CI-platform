@@ -16,6 +16,10 @@ namespace CI_Platform.Repository.Interface
         public ICityRepository City{ get; }
 
         public IMissionThemeRepository MissionTheme{ get; }
+
+        public ISkillRepository Skill{ get; }
+
+        public IMissionRepository Mission{ get; }
         void Save();
     }
 }

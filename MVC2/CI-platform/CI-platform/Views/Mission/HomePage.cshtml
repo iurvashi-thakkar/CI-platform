@@ -1,4 +1,7 @@
-﻿@{
+﻿@using CI_Platform.Entity.DataModels
+@model IEnumerable<Mission>
+
+@{
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
@@ -16,8 +19,8 @@
                         Sort BY
                     </div>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Newest</a></li>
-                        <li><a class="dropdown-item" href="#">Oldest</a></li>
+                        <li><a class="dropdown-item" asp-action="HomePage" asp-route-sort="newest">Newest</a></li>
+                        <li><a class="dropdown-item"  asp-action="HomePage" asp-route-sort="oldest">Oldest</a></li>
             <li><a class="dropdown-item" href="#">Lower Available seats</a></li>
                       </ul>
                 </div>
@@ -26,7 +29,7 @@
             <div class="col-lg-1 col-md-2 d-flex">
                 <button id="grid" class="btn-view temp">
                     
-                    <img src="~/images/grid.png" alt="gridlogo"  />
+                    <img src="~/images/grid.png" alt="gridlogo"/>
 
                 </button>
                 <button id="list" class="btn-view temp">

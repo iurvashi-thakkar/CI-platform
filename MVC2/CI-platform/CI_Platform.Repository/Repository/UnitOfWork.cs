@@ -19,6 +19,9 @@ namespace CI_Platform.Repository.Repository
 
         public IMissionThemeRepository MissionTheme { get; private set; }
 
+        public ISkillRepository Skill { get; private set; }
+
+        public IMissionRepository Mission { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
@@ -27,6 +30,8 @@ namespace CI_Platform.Repository.Repository
             Country = new CountryRepository(_db);
             City = new CityRepository(_db);
             MissionTheme = new MissionThemeRepository(_db);
+            Skill = new SkillRepository(_db);
+            Mission = new MissionRepository(_db);
         }
 
         public void Save()

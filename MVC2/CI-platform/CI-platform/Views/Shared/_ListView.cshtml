@@ -1,16 +1,17 @@
 ﻿<div class="container mt-5 d-none" id="partialList">
-    @for(int j = 0; j < 10; j++)
-    {
-           <div class="card mt-3">
+   @* @for(int j = 0; j < 10; j++)
+    {*@
+        @foreach(var mission in ViewBag.Missions)
+        {
+        <div class="card card-div mt-3">
              <div class="row g-0">
                    <div class="col-12 col-md-3">
                        
                              <img style="position: relative;height:100%;width:100%" src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" class="img-fluid rounded-start" alt="...">
-                                <button class="list-mission-title">
- Environment </button>
+                                <button class="list-mission-title">@mission.Theme.Title</button>
                             <div class="location-list1">
                                <img src="~/images/pin1.png" style="margin:6px 10px"/>
-                               <span style="color: #FFFFFF">Torronto</span>
+                               <span style="color: #FFFFFF">@mission.City.Name</span>
                                                      <button class="favourite"><img src="~/images/heart.png"></button>
                                     <button class="userdisplay"><img src="~/images/user.png"/>
 </button>
@@ -23,15 +24,15 @@
        <div class="d-flex">
                   <div class="mx-3">
                     <img src="~/images/pin1.png" alt="location-logo">
-              <span>Atlanta</span>
+              <span>@mission.City.Name</span>
                   </div>
                  <div class="mx-3">
               <img src="~/images/web.png" alt="location-logo">
-              <span>Environment</span>
+              <span>@mission.Theme.Title</span>
               </div>
               <div class="mx-3"> 
               <img src="~/images/organization.png" alt="location-logo">
-              <span>Smith International Caring Foundation</span>
+              <span>@mission.OrganizationName</span>
               </div>
                </div>
                <div class="d-flex px-3">
@@ -51,8 +52,8 @@
              
 
           </div>
-        <h5 class="card-title custom-card-title">Education Supplies for Every Pair of Shoes Sold</h5>
-        <p class="card-text"  style="color:#757575">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore....</p>
+        <h5 class="card-title custom-card-title">@mission.Title</h5>
+        <p class="card-text"  style="color:#757575">@mission.ShortDescription</p>
        
    <div class="d-flex justify-content-between list-card">
 
@@ -78,8 +79,8 @@
                    <div  class="d-flex align-items-center"  style="margin-right:30px">
                        <img src="~/images/calender.png" style="width:30px;height:30px"> 
                        <div class="d-flex flex-column">
-                             <span>from 01/09/2019</span>
-                        <span>Until 01/12/2020</span>
+                             <span>from @mission.StartDate.ToString("dd/MM/yyyy")</span>
+                        <span>Until @mission.EndDate.ToString("dd/MM/yyyy")</span>
                        </div>
                    </div>
                    <div  class="d-flex align-items-center"  style="margin-right:30px">
@@ -109,6 +110,5 @@
 </div>
 </div>
     }
- 
-   
-   </div>
+ @*   }*@
+</div>

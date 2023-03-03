@@ -3,15 +3,15 @@
  @* @for(int k = 0; k < 3; k++)
     { *@
     <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 g-4 mt-3">
-           @for(int j = 0; j < 9; j++)
+           @foreach(var mission in ViewBag.Missions)
             {
-               <div class="col">
+               <div class="col card-div">
     <div class="card h-100">
         
       <img  style=" position: relative;" src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" class="card-img-top" alt="...">
       <div class="location">
           <img src="~/images/pin1.png" style="margin:6px 10px"/>
-          <span style="color: #FFFFFF">Torronto</span>
+          <span style="color: #FFFFFF">@mission.City.Name</span>
           
 <div>
      <button class="favourite"><img src="~/images/heart.png"/>
@@ -26,18 +26,18 @@
       </div>
        <div>
           <button class="mission-title">
- Environment
+                @mission.Theme.Title
           </button>
    
     </div>
 
 
       <div class="card-body px-3">
-        <h5 class="card-title custom-card-title">Education Supplies for Every Pair of Shoes Sold</h5>
-        <p class="card-text" style="color:#757575">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore....</p>
+        <h5 class="card-title custom-card-title">@mission.Title</h5>
+        <p class="card-text" style="color:#757575">@mission.ShortDescription</p>
        <div class="d-flex justify-content-between">
                 <p style="color:#414141">
-                Australian Paradise
+                @mission.OrganizationName
                 </p>
            
             <div class="d-flex">
@@ -64,7 +64,7 @@
             <button style="width:273px;background: #FFFFFF 0% 0% no-repeat padding-box;
 border: 1px solid #E8E8E8;
 border-radius: 18px;
-opacity: 1;color: #414141">From 10/01/2019 until 25/02/2019</button>
+opacity: 1;color: #414141">From @mission.StartDate.ToString("dd/MM/yyyy") until @mission.EndDate.ToString("dd/MM/yyyy")</button>
               <div style="width:50px;color:#DDDDDD">
               <hr />
           </div>
@@ -87,7 +87,7 @@ opacity: 1;color: #414141">From 10/01/2019 until 25/02/2019</button>
               <img src="~/images/deadline.png" alt="seats-left-logo" />
           </div>
           <div class="d-flex flex-column" style="font-size:22px">
-          <span  style="font-weight:600">09/01/2019</span>
+          <span  style="font-weight:600">@((mission.StartDate - TimeSpan.FromDays(1)).ToString("dd/MM/yyyy"))</span>
           <span>Deadline</span>
           </div>
        
