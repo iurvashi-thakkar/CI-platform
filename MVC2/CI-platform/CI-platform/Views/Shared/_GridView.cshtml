@@ -2,7 +2,7 @@
 <div class="container mt-4" id="partialGrid">
  @* @for(int k = 0; k < 3; k++)
     { *@
-    <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 g-4 mt-3">
+   <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 g-4 mt-3">
            @foreach(var mission in ViewBag.Missions)
             {
                <div class="col card-div">
@@ -11,7 +11,8 @@
       <img  style=" position: relative;" src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" class="card-img-top" alt="...">
       <div class="location">
           <img src="~/images/pin1.png" style="margin:6px 10px"/>
-          <span style="color: #FFFFFF">@mission.City.Name</span>
+          <span class="d-none mission-country">@mission.Country.Name</span>
+          <span style="color: #FFFFFF" class="mission-city">@mission.City.Name</span>
           
 <div>
      <button class="favourite"><img src="~/images/heart.png"/>
@@ -25,9 +26,7 @@
 </div>
       </div>
        <div>
-          <button class="mission-title">
-                @mission.Theme.Title
-          </button>
+          <button class="mission-title">@mission.Theme.Title</button>
    
     </div>
 
@@ -61,10 +60,25 @@
           <div style="width:50px;color:#DDDDDD">
               <hr />
           </div>
-            <button style="width:273px;background: #FFFFFF 0% 0% no-repeat padding-box;
+                            @if (@mission.MissionType.Equals("Time"))
+                            {
+                                 <button style="width:273px;background: #FFFFFF 0% 0% no-repeat padding-box;
 border: 1px solid #E8E8E8;
 border-radius: 18px;
 opacity: 1;color: #414141">From @mission.StartDate.ToString("dd/MM/yyyy") until @mission.EndDate.ToString("dd/MM/yyyy")</button>
+                            }
+                            else
+                            {
+                            @* <button style="width:273px;background: #FFFFFF 0% 0% no-repeat padding-box;
+border: 1px solid #E8E8E8;
+border-radius: 18px;
+opacity: 1;color: #414141">@mission.GoalMissions.GoalObjectiveText</button>*@
+                                                         <button style="width:273px;background: #FFFFFF 0% 0% no-repeat padding-box;
+border: 1px solid #E8E8E8;
+border-radius: 18px;
+opacity: 1;color: #414141">@mission.MissionType</button>
+                            }
+                           
               <div style="width:50px;color:#DDDDDD">
               <hr />
           </div>
@@ -103,9 +117,133 @@ color: #F88634">Apply</span>
       </div>
     </div>
   </div>   
-           }
+         }
           
 </div>
 
 @*}*@
 </div>
+
+
+
+
+
+
+
+@*<div class="container mt-4" id="partialGrid">
+ @* @for(int k = 0; k < 3; k++)
+    { *@
+    @*<div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 g-4 mt-3">
+           @foreach(var mission in ViewBag.Missions)
+            {
+              <div class="card h-100 shadow-sm border-light">
+                    <div class="position-relative">
+                        <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+                         class="card-img-top" alt="...">
+
+                        <button class="me-2 btn bg-black bg-opacity-50 position-absolute top-0 end-0 p-2 rounded-pill text-decoration-none text-white">
+                            <a href="" class="text-decoration-none text-white">
+                                <img src="~/images/pin.png" alt="" class="img-fluid"> &nbsp; @mission.City.Name
+                            </a>
+                        </button>
+                        <button class="me-2 btn bg-black bg-opacity-50 position-absolute top-50 end-0 p-2 rounded-pill">
+                            <a href="" class="text-decoration-none text-white">
+                                <img src="~/images/heart.png" alt="" class="img-fluid">
+                            </a>
+                        </button>
+                        <button class="me-2 btn bg-black bg-opacity-50 position-absolute bottom-0 end-0 p-2 rounded-pill">
+                            <a href="" class="text-decoration-none text-white">
+                                <img src="~/images/user.png" alt="" class="img-fluid">
+                            </a>
+                        </button>
+                        <div class="position-absolute top-100 start-50 translate-middle bg-white rounded-pill px-3 py-2">
+                            <span>@mission.Theme.Title</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body pt-4">
+                        <h4 class="card-title">@mission.Title</h4>
+                        <p class="card-text">
+                            @mission.ShortDescription
+                        </p>
+
+                        <div class="row d-flex seats-left">
+                            <div class="col">
+                                <h6>
+                                    @mission.OrganizationName
+                                </h6>
+                            </div>
+                            <div class="col text-end">
+                                <img src="~/images/selected-star.png" alt="">
+                                <img src="~/images/selected-star.png" alt="">
+                                <img src="~/images/selected-star.png" alt="">
+                                <img src="~/images/star.png" alt="">
+                                <img src="~/images/star.png" alt="">
+
+                                @obj.MissionRatings.Rating
+                          @*  </div>
+                        </div>
+
+                        <div class="row d-flex py-3 g-0 items-align-center">
+                            <div class="col-2">
+                                <hr>
+                            </div>
+                            <div class="col-8 text-center border border-secondary rounded-pill">
+                                @*<span style="font-size: 15px;">From @obj.StartDate.ToShortDateString() until @obj.EndDate.ToShortDateString()</span>*@
+
+                              @*  @if (mission.MissionType.Equals("Time"))
+                                {
+                                    <span style="font-size: 15px;">From @mission.StartDate.ToString("dd/MM/yyyy")  until @mission.EndDate.ToString("dd/MM/yyyy")</span>
+                                }
+                                else 
+                                {
+                                    @*<span style="font-size: 15px;"> @obj.MissionType </span>*@
+                                   @* <span style="font-size: 15px;"> @mission.GoalMissions[0].GoalValue </span>*@
+                              @*  }
+                           @* </div>
+                            <div class="col-2">
+                                <hr>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-around mt-1 seats-left">
+                            <div class="d-flex align-items-center">
+                                <img src="~/images/Seats-left.png" alt=""
+                                 style="margin-right: 10px; width: 30px; height: 30px" />
+                                <div class="d-flex flex-column">
+                                    <span>10</span>
+                                    <span>Seats Left</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <img src="~/images/Seats-left.png" alt=""
+                                 style="margin-right: 10px; width: 30px; height: 30px" />
+                                <div class="d-flex flex-column">
+                                    <span>@((mission.StartDate - TimeSpan.FromDays(1)).ToString("dd/MM/yyyy"))</span>
+                                    <span>Deadline</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="text-center">
+                            <form asp-controller="Mission" asp-action="VolunteeringMission">
+                                <button class="btn-apply rounded-pill px-4 py-2">
+                                    Apply
+                                    <img src="~/images/right-arrow.png" alt="" class="ms-3">
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           }
+          
+</div>
+
+@*}*@
+@*</div>
+
+
+
+*@

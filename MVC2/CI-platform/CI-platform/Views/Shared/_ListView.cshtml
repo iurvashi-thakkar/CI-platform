@@ -8,10 +8,10 @@
                    <div class="col-12 col-md-3">
                        
                              <img style="position: relative;height:100%;width:100%" src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" class="img-fluid rounded-start" alt="...">
-                                <button class="list-mission-title">@mission.Theme.Title</button>
+                                <button class="list-mission-title mission-theme">@mission.Theme.Title</button>
                             <div class="location-list1">
                                <img src="~/images/pin1.png" style="margin:6px 10px"/>
-                               <span style="color: #FFFFFF">@mission.City.Name</span>
+                               <span style="color: #FFFFFF" class="mission-city">@mission.City.Name</span>
                                                      <button class="favourite"><img src="~/images/heart.png"></button>
                                     <button class="userdisplay"><img src="~/images/user.png"/>
 </button>
@@ -24,11 +24,11 @@
        <div class="d-flex">
                   <div class="mx-3">
                     <img src="~/images/pin1.png" alt="location-logo">
-              <span>@mission.City.Name</span>
+              <span class="mission-city">@mission.City.Name</span>
                   </div>
                  <div class="mx-3">
               <img src="~/images/web.png" alt="location-logo">
-              <span>@mission.Theme.Title</span>
+              <span class="mission-theme">@mission.Theme.Title</span>
               </div>
               <div class="mx-3"> 
               <img src="~/images/organization.png" alt="location-logo">

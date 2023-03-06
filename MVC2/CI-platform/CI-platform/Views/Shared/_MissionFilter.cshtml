@@ -265,6 +265,7 @@
  
 <script>
     arr=new Set([]);
+     arrUpper=new Set([]);
     function isCheckedById(id) {
          
          checkbox = document.getElementById(id);
@@ -287,14 +288,54 @@
                                </span>`;
          }
          k.innerHTML=temp;
+   for(const item1 of arr){
+       //console.log(item1.toUpperCase());
+       arrUpper.add(item1.toUpperCase());
+       //console.log(arrUpper);
+   }
+         filter();
     }
+   
+  
+function filter(){
 
-    function search() {
+    console.log(arr);   
+    cards=document.getElementsByClassName("card-div");
+    country= document.getElementsByClassName("mission-country");
+    cities=document.getElementsByClassName("mission-city");
+    themes=document.getElementsByClassName("mission-title");
+  
+    for(i=0;i<cards.length;i++){
+   
+        console.log(cities[i].innerText);
+        console.log(themes[i].innerText);
+        if(arr.size != 0){
+             if(arr.has(cities[i].innerText) || arr.has(themes[i].innerText)){
+           
+             cards[i].style="display:block";
+             cards[i+(cards.length/2)].style="display:block";
+        }
+       
+        
+        else{
+         
+            cards[i].style="display:none";
+            cards[i+(cards.length/2)].style="display:none";
+        }
+        }
+        else{
+              cards[i].style="display:block";
+        }
+       
+    }
+}
+
+  function search() {
   // Declare variables
   var input, filter;
   input = document.getElementById("searchField");
   filter = input.value.toUpperCase();
-  cards = document.getElementsByClassName("card-div")
+  cards = document.getElementsByClassName("card-div");
   titles = document.getElementsByClassName("card-title");
 
   // Loop through all list items, and hide those who don't match the search query
@@ -307,4 +348,5 @@
     }
   }
 }
+
 </script>
