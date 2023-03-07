@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using CI_Platform.Entity.DataModels.ViewModel
+@model HomeLandingPageVM
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -75,10 +77,10 @@
                 <div class="dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span>
-                            <img src="@ViewBag.User.Avatar" class="profilePhoto" />
+                            <img src=@Model.LoggedUser.Avatar class="profilePhoto" />
                         </span>
                         <p class="d-inline" id="profileText">
-                                @ViewBag.User.FirstName @ViewBag.User.LastName
+                                @Model.LoggedUser.FirstName @Model.LoggedUser.LastName
                         </p>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">

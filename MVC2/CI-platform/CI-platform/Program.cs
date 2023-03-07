@@ -18,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>();
+builder.Services.AddScoped<IHomeLandingRepository,HomeLandingRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(

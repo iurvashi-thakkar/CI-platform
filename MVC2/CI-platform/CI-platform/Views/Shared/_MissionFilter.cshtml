@@ -1,23 +1,39 @@
-﻿ <style>
-       #filter-items {
+﻿@using CI_Platform.Entity.DataModels.ViewModel
+@model HomeLandingPageVM
+
+<style>
+    #filter-items {
         display: flex;
         flex-wrap: wrap;
         align-content: center;
         color: #757575;
     }
-   </style>
-<div class="shadow-sm border-bottom"> 
+    .pill{
+    border: 1px solid black;
+    border-radius: 40%;
+    padding: 2px 5px;
+    margin-right: 7px;
+}
+</style>
+
+<script
+  src="https://code.jquery.com/jquery-3.6.3.min.js"
+  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+  crossorigin="anonymous"></script>
+
+
+<div class="shadow-sm border-bottom">
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-sm-12 p-3 border-start border-end d-inline-flex">
                 <div class="input-group">
-                  <span class="input-group-text bg-white border-none" id="seacrhIcon">
-                      <img src="~/images/search.png" />
-                  </span>
-                  <input type="search" class="form-control border-none" placeholder="Search" aria-label="Search" aria-describedby="seacrhIcon" id="searchField" onkeyup="search()">
+                    <span class="input-group-text bg-white border-none" id="seacrhIcon">
+                        <img src="~/images/search.png" />
+                    </span>
+                    <input type="search" class="form-control border-none" placeholder="Search" aria-label="Search" aria-describedby="seacrhIcon" id="searchField" onkeyup="search()">
                 </div>
                 <button class="img-filter border-none bg-white">
-                    <img src="~/images/filter.png" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu"/>
+                    <img src="~/images/filter.png" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu" />
                 </button>
             </div>
             <div class="filter-options col-md-8">
@@ -25,328 +41,478 @@
                     <div class="col-md-3 p-3 border-end">
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="countryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                               Country
-                            </a> 
-                            <ul class="dropdown-menu scrollable-menu" aria-labelledby="profileDropdown" role="menu">
-                               <form>
-                                    <li><button class="dropdown-item countries" value="All" asp-controller="Mission" asp-action="HomePage" asp-route-id="0">All</button></li>
-                                    @foreach(var country in ViewBag.Countries)
-                                    {
-                                        <li>
-                                            <button type="submit" class="dropdown-item countries" value="@country.Name" asp-controller="Mission" asp-action="HomePage" asp-route-id="@country.CountryId">
-                                                @country.Name
-                                            </button>
-                                        </li>
-                                    }
-                                </form>
+                                Country
+                            </a>
+                            <ul class="dropdown-menu scrollable-menu" aria-labelledby="profileDropdown" role="menu" id="CountryList">
+                                @* <form>*@
+                          @*      <li><button class="dropdown-item countries" value="All">All</button></li>*@
+                                @foreach (var country in Model.Countries)
+                                {
+                                    @* <li value="@country.Name" id="@country.Name">
+                                        <button type="submit" class="dropdown-item countries" value="@country.Name" asp-controller="Mission" asp-action="HomePage" asp-route-id="@country.CountryId">
+                                        @country.Name
+                                        </button>
+                                        </li>*@
+                                    <li value="@country.CountryId">
+                                        <a class="dropdown-item" value="@country.CountryId">@country.Name</a>
+                                    </li>
+                                        @*       <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="@country.Name" id="@country.Name">
+                                            <label class="form-check-label" for="@country.Name">@country.Name</label>
+                                            </div>*@
+                                    
+                                }
+                                @*       </form>*@
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-3 p-3 border-end">
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="cityDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                               City
+                                City
                             </a>
-                            <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="cityDropdown">
-                              
-                                 @*   <li><button class="dropdown-item countries" value="All" asp-controller="Home" asp-action="HomePage" asp-route-id="0">All</button></li>*@
-                                    @foreach(var city in ViewBag.Cities)
+                            <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="cityDropdown" id="cityList">
+
+                                @*   <li><button class="dropdown-item countries" value="All" asp-controller="Home" asp-action="HomePage" asp-route-id="0">All</button></li>*@
+                                @* @foreach(var city in Model.Cities)
                                     {
-                                        <li>
-                                         <div class="form-check" id="drop-city">
-                                            <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name" onclick="isCheckedById('@city.Name')">
-                                            <label class="form-check-label" for="@city.Name">@city.Name</label>
-                                        </div>
-                                        </li>
-                                    }
-                               
+                                    <li>
+                                    <div class="form-check" id="drop-city">
+                                    <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name" onclick="isCheckedById('@city.Name')">
+                                    <label class="form-check-label" for="@city.Name">@city.Name</label>
+                                    </div>
+                                    </li>
+                                    }*@
+
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-3 p-3 border-end">
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="themeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                               Theme
+                                Theme
                             </a>
                             <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="themeDropdown">
-                                @foreach(var theme in ViewBag.Themes)
-                                    {
-                                        <li>
-                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="@theme.Title" id="@theme.Title" onclick="isCheckedById('@theme.Title')" >
+                                @foreach (var theme in Model.Themes)
+                                {
+                                    <li>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="@theme.Title" id="@theme.Title">
                                             <label class="form-check-label" for="@theme.Title">@theme.Title</label>
                                         </div>
-                                        </li>
-                                    }
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-3 p-3 border-end">
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="skillsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                               Skills
+                                Skills
                             </a>
                             <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="skillsDropdown">
-                               @foreach(var skill in ViewBag.Skills)
-                                    {
-                                        <li>
-                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="@skill.SkillName" id="@skill.SkillName" onclick="isCheckedById('@skill.SkillName')">
+                                @foreach (var skill in Model.Skills)
+                                {
+                                    <li>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="@skill.SkillName" id="@skill.SkillName">
                                             <label class="form-check-label" for="@skill.SkillName">@skill.SkillName</label>
                                         </div>
-                                        </li>
-                                    }
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="offcanvas offcanvas-start" tabindex="-1" id="filterMenu" aria-labelledby="filterMenu">
-              <div class="offcanvas-header flex-row-reverse">
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div>
-              <div class="offcanvas-body">
-                  <div class="accordion" id="filters">
-                      <div class="accordion-item border-none">
-                        <h2 class="accordion-header" id="country">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#countriesAccordion" aria-expanded="false" aria-controls="countriesAccordion">
-                            Country
-                          </button>
-                        </h2>
-                        <div id="countriesAccordion" class="accordion-collapse collapse" aria-labelledby="country" data-bs-parent="#filters">
-                          <div class="accordion-body">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="country1">
-                              <label class="form-check-label" for="country1">
-                                Canada
-                              </label>
+                <div class="offcanvas-header flex-row-reverse">
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="accordion" id="filters">
+                        <div class="accordion-item border-none">
+                            <h2 class="accordion-header" id="country">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#countriesAccordion" aria-expanded="false" aria-controls="countriesAccordion">
+                                    Country
+                                </button>
+                            </h2>
+                            <div id="countriesAccordion" class="accordion-collapse collapse" aria-labelledby="country" data-bs-parent="#filters">
+                                <div class="accordion-body">
+                                    @foreach (var country in Model.Countries)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="@country.Name">
+                                            <label class="form-check-label" for="@country.Name">
+                                                @country.Name
+                                            </label>
+                                        </div>
+                                    }
+
+                                </div>
                             </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="country2">
-                              <label class="form-check-label" for="country2">
-                                England
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="country3">
-                              <label class="form-check-label" for="country3">
-                                India
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="country4">
-                              <label class="form-check-label" for="country4">
-                                USA
-                              </label>
-                            </div>
-                          </div>
                         </div>
-                      </div>
-                      <div class="accordion-item border-none">
-                        <h2 class="accordion-header" id="city">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#citiesAccordion" aria-expanded="false" aria-controls="citiesAccordion">
-                           City
-                          </button>
-                        </h2>
-                        <div id="citiesAccordion" class="accordion-collapse collapse" aria-labelledby="city" data-bs-parent="#filters">
-                          <div class="accordion-body">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="city1">
-                              <label class="form-check-label" for="city1">
-                                Delhi
-                              </label>
+                        <div class="accordion-item border-none">
+                            <h2 class="accordion-header" id="city">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#citiesAccordion" aria-expanded="false" aria-controls="citiesAccordion">
+                                    City
+                                </button>
+                            </h2>
+                            <div id="citiesAccordion" class="accordion-collapse collapse" aria-labelledby="city" data-bs-parent="#filters">
+                                <div class="accordion-body">
+                                    @foreach (var city in Model.Cities)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name">
+                                            <label class="form-check-label" for="@city.Name">
+                                                @city.Name
+                                            </label>
+                                        </div>
+                                    }
+
+                                </div>
                             </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="city2">
-                              <label class="form-check-label" for="city2">
-                                Chennai
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="city3">
-                              <label class="form-check-label" for="city3">
-                                Ahmedabad
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="city4">
-                              <label class="form-check-label" for="city4">
-                                Mumbai
-                              </label>
-                            </div>
-                          </div>
                         </div>
-                      </div>
-                      <div class="accordion-item border-none">
-                        <h2 class="accordion-header" id="theme">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#themesAccordion" aria-expanded="false" aria-controls="themesAccordion">
-                            Theme
-                          </button>
-                        </h2>
-                        <div id="themesAccordion" class="accordion-collapse collapse" aria-labelledby="theme" data-bs-parent="#filters">
-                         <div class="accordion-body">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="theme1">
-                              <label class="form-check-label" for="theme1">
-                                theme1
-                              </label>
+                        <div class="accordion-item border-none">
+                            <h2 class="accordion-header" id="theme">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#themesAccordion" aria-expanded="false" aria-controls="themesAccordion">
+                                    Theme
+                                </button>
+                            </h2>
+                            <div id="themesAccordion" class="accordion-collapse collapse" aria-labelledby="theme" data-bs-parent="#filters">
+                                <div class="accordion-body">
+                                    @foreach (var theme in Model.Themes)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="@theme.Title">
+                                            <label class="form-check-label" for="@theme.Title">
+                                                @theme.Title
+                                            </label>
+                                        </div>
+                                    }
+
+                                </div>
                             </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="theme2">
-                              <label class="form-check-label" for="theme2">
-                                theme2
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="theme3">
-                              <label class="form-check-label" for="theme3">
-                                theme3
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="theme4">
-                              <label class="form-check-label" for="theme4">
-                                theme5
-                              </label>
-                            </div>
-                          </div>
                         </div>
-                      </div>
-                      <div class="accordion-item border-none">
-                        <h2 class="accordion-header" id="skill">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#skillsAccordion" aria-expanded="false" aria-controls="skillsAccordion">
-                            Skills
-                          </button>
-                        </h2>
-                        <div id="skillsAccordion" class="accordion-collapse collapse" aria-labelledby="skill" data-bs-parent="#filters">
-                         <div class="accordion-body">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="skill1">
-                              <label class="form-check-label" for="skill1">
-                                skill1
-                              </label>
+                        <div class="accordion-item border-none">
+                            <h2 class="accordion-header" id="skill">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#skillsAccordion" aria-expanded="false" aria-controls="skillsAccordion">
+                                    Skills
+                                </button>
+                            </h2>
+                            <div id="skillsAccordion" class="accordion-collapse collapse" aria-labelledby="skill" data-bs-parent="#filters">
+                                <div class="accordion-body">
+                                    @foreach (var skill in Model.Skills)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id=" @skill.SkillName">
+                                            <label class="form-check-label" for=" @skill.SkillName">
+                                                @skill.SkillName
+                                            </label>
+                                        </div>
+                                    }
+
+                                </div>
                             </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="skill2">
-                              <label class="form-check-label" for="skill2">
-                                skill2
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="skill3">
-                              <label class="form-check-label" for="skill3">
-                                skill3
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="skill4">
-                              <label class="form-check-label" for="skill4">
-                                skill4
-                              </label>
-                            </div>
-                          </div>
                         </div>
-                      </div>
-                  </div>
-              </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 @* <div class="form-check" id="drop-city">
-                                            <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name" name="@city.Name" onclick="isCheckedById('@city.Name')">
-                                            <label class="form-check-label" for="@city.Name">@city.Name</label>
-                                        </div>*@
+    <input class="form-check-input" type="checkbox" value="@city.Name" id="@city.Name" name="@city.Name" onclick="isCheckedById('@city.Name')">
+    <label class="form-check-label" for="@city.Name">@city.Name</label>
+    </div>*@
 
 <div id="filter-items">
- 
 </div>
- 
+
 <script>
-    arr=new Set([]);
-     arrUpper=new Set([]);
-    function isCheckedById(id) {
-         
-         checkbox = document.getElementById(id);
-         console.log(id);
-         var k=document.getElementById("filter-items");
-         if(event.target.checked){
-            arr.add(event.target.value);   
-            console.log(arr);
-         }  
-         else{
-             arr.delete(event.target.value);
-         }
-         console.log(arr);
-         var temp="";
-         for(const item of arr){
-             console.log("hello");
-             temp += `<span class="rounded-pill alert border-dark px-2 py-0 m-2">
-                                    ${item}
-                                       <button type="button" class="btn-close" value="${item}" aria-label="Close" data-bs-dismiss="alert"></button>
-                               </span>`;
-         }
-         k.innerHTML=temp;
-   for(const item1 of arr){
-       //console.log(item1.toUpperCase());
-       arrUpper.add(item1.toUpperCase());
-       //console.log(arrUpper);
-   }
-         filter();
+    //    arr=new Set([]);
+    //     arrUpper=new Set([]);
+    //    function isCheckedById(id) {
+
+    //         checkbox = document.getElementById(id);
+    //         console.log(id);
+    //         var k=document.getElementById("filter-items");
+    //         if(event.target.checked){
+    //            arr.add(event.target.value);
+    //            console.log(arr);
+    //         }
+    //         else{
+    //             arr.delete(event.target.value);
+    //         }
+    //         console.log(arr);
+    //         var temp="";
+    //         for(const item of arr){
+    //             console.log("hello");
+    //             temp += `<span class="rounded-pill alert border-dark px-2 py-0 m-2">
+    //                                    ${item}
+    //                                       <button type="button" class="btn-close" value="${item}" aria-label="Close" data-bs-dismiss="alert"></button>
+    //                               </span>`;
+    //         }
+    //         k.innerHTML=temp;
+    //   for(const item1 of arr){
+    //       //console.log(item1.toUpperCase());
+    //       arrUpper.add(item1.toUpperCase());
+    //       //console.log(arrUpper);
+    //   }
+    //         filter();
+    //    }
+
+
+    //function filter(){
+
+    //    console.log(arr);
+    //    cards=document.getElementsByClassName("card-div");
+    //    country= document.getElementsByClassName("mission-country");
+    //    cities=document.getElementsByClassName("mission-city");
+    //    themes=document.getElementsByClassName("mission-theme");
+
+    //    for(i=0;i<cards.length;i++){
+
+    //        console.log(cities[i].innerText);
+    //        console.log(themes[i].innerText);
+    //        if(arr.size != 0){
+    //             if(arr.has(cities[i].innerText) || arr.has(themes[i].innerText)){
+
+    //             cards[i].style="display:block";
+    //             cards[i+(cards.length/2)].style="display:block";
+    //        }
+
+
+    //        else{
+
+    //            cards[i].style="display:none";
+    //            cards[i+(cards.length/2)].style="display:none";
+    //        }
+    //        }
+    //        else{
+    //              cards[i].style="display:block";
+    //        }
+
+    //    }
+    //}
+
+      function search() {
+      // Declare variables
+      var input, filter;
+      input = document.getElementById("searchField");
+      filter = input.value.toUpperCase();
+      cards = document.getElementsByClassName("card-div");
+      titles = document.getElementsByClassName("card-title");
+
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < cards.length; i++) {
+        a = titles[i];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          cards[i].classList.remove("d-none");
+        } else {
+          cards[i].classList.add("d-none");
+        }
+      }
     }
-   
-  
-function filter(){
 
-    console.log(arr);   
-    cards=document.getElementsByClassName("card-div");
-    country= document.getElementsByClassName("mission-country");
-    cities=document.getElementsByClassName("mission-city");
-    themes=document.getElementsByClassName("mission-title");
-  
-    for(i=0;i<cards.length;i++){
-   
-        console.log(cities[i].innerText);
-        console.log(themes[i].innerText);
-        if(arr.size != 0){
-             if(arr.has(cities[i].innerText) || arr.has(themes[i].innerText)){
-           
-             cards[i].style="display:block";
-             cards[i+(cards.length/2)].style="display:block";
-        }
-       
-        
-        else{
-         
-            cards[i].style="display:none";
-            cards[i+(cards.length/2)].style="display:none";
-        }
-        }
-        else{
-              cards[i].style="display:block";
-        }
-       
-    }
-}
 
-  function search() {
-  // Declare variables
-  var input, filter;
-  input = document.getElementById("searchField");
-  filter = input.value.toUpperCase();
-  cards = document.getElementsByClassName("card-div");
-  titles = document.getElementsByClassName("card-title");
+    let filterPills = $('.filter-items');
+    let allDropdowns = $('.dropdown ul');
+    allDropdowns.each(function ()
+    {
 
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < cards.length; i++) {
-    a = titles[i];
-    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-      cards[i].classList.remove("d-none");
+         let dropdown = $(this);
+         $(this).on('change', 'input[type="checkbox"]', function () 
+         {
+
+        // if the check box is checked then add it to pill
+                if ($(this).is(':checked')) 
+                {
+                    let selectedOptionText = $(this).next('label').text();
+                    let selectedOptionValue = $(this).val();
+                    const closeAllButton = filterPills.children('.closeAll');
+
+                    // creating a new pill
+                    let pill = $('<div></div>').addClass('pill');
+
+                    // adding the text to pill
+                    let pillText = $('<span></span>').text(selectedOptionText);
+                    pill.append(pillText);
+
+                    // add the close icon (bootstrap)
+                    let closeIcon = $('<span></span>').addClass('close').html(' x');
+                    pill.append(closeIcon);
+
+
+            // for closing the pill when clicking on close icon
+            closeIcon.click(function () {
+                const pillToRemove = $(this).closest('.pill');
+                pillToRemove.remove();
+                // Uncheck the corresponding checkbox
+                const checkboxElement = dropdown.find(`input[type="checkbox"][value="${selectedOptionValue}"]`);
+                checkboxElement.prop('checked', false);
+                if (filterPills.children('.pill').length === 1) {
+                    filterPills.children('.closeAll').remove();
+                }
+            });
+
+            // Add "Close All" button
+            if (closeAllButton.length === 0) {
+                filterPills.append('<div class=" closeAll"><span>Close All</span></div>');
+                filterPills.children('.closeAll').click(function () {
+                    allDropdowns.find('input[type="checkbox"]').prop('checked', false);
+                    filterPills.empty();
+                });
+
+                //add the pill before the close icon
+                filterPills.prepend(pill);
+
+            }
+            else {
+                filterPills.children('.closeAll').before(pill);
+            }
+
+        }
+        // if the checkbox is not checked then we have to check for its value if it is exists in the pills section then we have to remove it
+        else {
+            let selectedOptionText = $(this).next('label').text() + ' x';
+            let selectedOptionValue = $(this).val();
+            $('.pill').each(function () {
+                const pillText = $(this).text();
+                if (pillText === selectedOptionText) {
+                    $(this).remove();
+                }
+            });
+            if ($('.pill').length === 1) {
+                $('.closeAll').remove();
+            }
+        }
+
+        //FilterMissions();
+    });
+
+})
+
+
+$(".dropdown .CardsFilter").on('change', 'input[type="checkbox"]', function () {
+    console.log('hello');
+
+    var selectedCities = $('#CityList input[type="checkbox"]:checked').map(function () {
+        return $(this).next('label').text();
+    }).get();
+    console.log(selectedCities);
+
+    var selectedThemes = $('#ThemeList input[type="checkbox"]:checked').map(function () {
+        return $(this).next('label').text();
+    }).get();
+    console.log(selectedThemes);
+
+    if (selectedCities.length === 0 && selectedThemes.length === 0) {
+        $('.card-div').show();
     } else {
-      cards[i].classList.add("d-none");
+        //console.log(selectedCities);
+
+        $('.card-div').each(function () {
+            var cardCity = $(this).find('.mission-city').text();
+            var cardTheme = $(this).find('.mission-theme').text();
+
+            var cityFlag = selectedCities.some(function (selectedCity) {
+                return selectedCity.trim().toUpperCase() == cardCity.trim().toUpperCase();
+            });
+            var themeFlag = selectedThemes.some(function (selectedTheme) {
+                return selectedTheme.trim().toUpperCase() == cardTheme.trim().toUpperCase();
+            });
+
+            if (cityFlag) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
     }
-  }
-}
+});
+
+
+//$(".dropdown #ThemeList").on('change', 'input[type="checkbox"]', function () {
+//    console.log('hello');
+//    var selectedThemes = $('input[type="checkbox"]:checked').map(function () {
+//        return $(this).next('label').text();
+//    }).get();
+//    console.log(selectedThemes);
+
+//    $('.card-div').each(function () {
+//        var cardTheme = $(this).find('.mission-theme').text();
+//        var flag = selectedThemes.some(function (selectedTheme) {
+//            return selectedTheme.trim().toUpperCase() == cardTheme.trim().toUpperCase();
+//        });
+//        if (flag) {
+//            $(this).show();
+//        } else {
+//            $(this).hide();
+//        }
+//    });
+//});
+
+//$(".dropdown #SkillList").on('change', 'input[type="checkbox"]', function () {
+//    console.log('hello');
+//    var selectedSkills = $('input[type="checkbox"]:checked').map(function () {
+//        return $(this).next('label').text();
+//    }).get();
+//    console.log(selectedSkills);
+
+//    $('.card-div').each(function () {
+//        var cardSkill = $(this).find('.mission-skill').text();
+
+//        var flag = selectedSkills.some(function (selectedSkill) {
+//            return selectedSkill.toUpperCase() == cardSkill.toUpperCase();
+//        });
+//        console.log(flag);
+//        if (flag) {
+//            $(this).show();
+//        } else {
+//            $(this).hide();
+//        }
+//    });
+//});
+
+
+   
+
+    $("#CountryList li").click(function () {
+ 
+        var countryId = $(this).val();
+        console.log(countryId);
+
+        $('.card-div').each(function () {
+            var cardCountry = $(this).find('.mission-country').text();
+            //console.log(cardCountry);
+
+            if (countryId == cardCountry) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+            GetCitiesByCountry(countryId);
+    });
+
+    function GetCitiesByCountry(countryId){
+    $.ajax({
+            type: "GET",
+            url: "/Mission/GetCitiesByCountry",
+            data: { countryId: countryId },
+            success: function (data) {  
+                var dropdown = $("#cityList");
+                dropdown.empty();
+                var items = "";
+                $(data).each(function (i, item) {
+                    items += `<li> <div class="dropdown-item mb-1 ms-3 form-check"> <input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1" value=` + item.cityId + `>` + item.name + `</label></div></li>`
+                })
+                dropdown.html(items);
+            }
+        });
+    }
+
 
 </script>

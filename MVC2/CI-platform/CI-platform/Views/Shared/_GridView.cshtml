@@ -1,34 +1,37 @@
-﻿
+﻿@using CI_Platform.Entity.DataModels.ViewModel
+@model HomeLandingPageVM
 <div class="container mt-4" id="partialGrid">
  @* @for(int k = 0; k < 3; k++)
     { *@
    <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 g-4 mt-3">
-           @foreach(var mission in ViewBag.Missions)
+           @foreach(var mission in Model.Missions)
             {
-               <div class="col card-div">
-    <div class="card h-100">
+                        <div class="col card-div">
+                        <div class="card h-100">
         
-      <img  style=" position: relative;" src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" class="card-img-top" alt="...">
-      <div class="location">
-          <img src="~/images/pin1.png" style="margin:6px 10px"/>
-          <span class="d-none mission-country">@mission.Country.Name</span>
-          <span style="color: #FFFFFF" class="mission-city">@mission.City.Name</span>
-          
-<div>
-     <button class="favourite"><img src="~/images/heart.png"/>
-</button>
-</div>
-
-
-<div>
-<button class="userdisplay"><img src="~/images/user.png"/>
-</button>
-</div>
-      </div>
-       <div>
-          <button class="mission-title">@mission.Theme.Title</button>
-   
-    </div>
+                        <div class="position-relative">
+                        <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+                         class="card-img-top" alt="...">
+                         <span class="d-none mission-country">@mission.Country.CountryId</span>
+                        <button class="me-2 btn bg-black bg-opacity-50 position-absolute top-0 end-0 p-2 rounded-pill text-decoration-none text-white">
+                            <a href="" class="text-decoration-none text-white">
+                                <img src="~/images/pin.png" alt="" class="img-fluid"> &nbsp; @mission.City.Name
+                            </a>
+                        </button>
+                        <button class="me-2 btn bg-black bg-opacity-50 position-absolute top-50 end-0 p-2 rounded-pill">
+                            <a href="" class="text-decoration-none text-white">
+                                <img src="~/images/heart.png" alt="" class="img-fluid">
+                            </a>
+                        </button>
+                        <button class="me-2 btn bg-black bg-opacity-50 position-absolute bottom-0 end-0 p-2 rounded-pill">
+                            <a href="" class="text-decoration-none text-white">
+                                <img src="~/images/user.png" alt="" class="img-fluid">
+                            </a>
+                        </button>
+                        <div class="position-absolute top-100 start-50 translate-middle bg-white rounded-pill px-3 py-2">
+                            <span class="mission-theme">@mission.Theme.Title</span>
+                        </div>
+                    </div>
 
 
       <div class="card-body px-3">
@@ -60,12 +63,12 @@
           <div style="width:50px;color:#DDDDDD">
               <hr />
           </div>
-                            @if (@mission.MissionType.Equals("Time"))
+                            @if (mission.MissionType.Equals("Time"))
                             {
                                  <button style="width:273px;background: #FFFFFF 0% 0% no-repeat padding-box;
 border: 1px solid #E8E8E8;
 border-radius: 18px;
-opacity: 1;color: #414141">From @mission.StartDate.ToString("dd/MM/yyyy") until @mission.EndDate.ToString("dd/MM/yyyy")</button>
+opacity: 1;color: #414141">From @mission.StartDate.Value.ToShortDateString() until @mission.EndDate.Value.ToShortDateString()</button>
                             }
                             else
                             {
@@ -101,7 +104,7 @@ opacity: 1;color: #414141">@mission.MissionType</button>
               <img src="~/images/deadline.png" alt="seats-left-logo" />
           </div>
           <div class="d-flex flex-column" style="font-size:22px">
-          <span  style="font-weight:600">@((mission.StartDate - TimeSpan.FromDays(1)).ToString("dd/MM/yyyy"))</span>
+          <span  style="font-weight:600">@((mission.StartDate - TimeSpan.FromDays(1)).Value.ToShortDateString())</span>
           <span>Deadline</span>
           </div>
        

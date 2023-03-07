@@ -1,5 +1,6 @@
-﻿@using CI_Platform.Entity.DataModels
-@model IEnumerable<Mission>
+﻿
+@using CI_Platform.Entity.DataModels.ViewModel
+@model HomeLandingPageVM
 
 @{
     ViewData["Title"] = "Home";
@@ -19,8 +20,13 @@
                         Sort BY
                     </div>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" asp-action="HomePage" asp-route-sort="newest">Newest</a></li>
-                        <li><a class="dropdown-item"  asp-action="HomePage" asp-route-sort="oldest">Oldest</a></li>
+                        <li><a class="dropdown-item" asp-action="HomePage" asp-route-sort="Newest">Newest</a></li>
+                        <li><a class="dropdown-item"  asp-action="HomePage" asp-route-sort="Oldest">Oldest</a></li>
+                        <li><a class="dropdown-item" asp-action="HomePage" asp-route-sort="Highest_seats">Highest seats</a></li>
+                        <li><a class="dropdown-item"  asp-action="HomePage" asp-route-sort="Lowest_seats">Lowest seats</a></li> 
+                        <li><a class="dropdown-item" asp-action="HomePage" asp-route-sort="Favourite">Favourite</a></li>
+                        <li><a class="dropdown-item"  asp-action="HomePage" asp-route-sort="Deadline">Deadline</a></li>
+                       
             <li><a class="dropdown-item" href="#">Lower Available seats</a></li>
                       </ul>
                 </div>

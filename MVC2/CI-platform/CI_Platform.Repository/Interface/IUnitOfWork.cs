@@ -20,6 +20,7 @@ namespace CI_Platform.Repository.Interface
         public ISkillRepository Skill{ get; }
 
         public IMissionRepository Mission{ get; }
+
         void Save();
     }
 }
