@@ -20,5 +20,13 @@ namespace CI_Platform.Entity.DataModels.ViewModel
         //public string SelectedCountry { get; set; }
         public User LoggedUser { get; set; }
 
+        public int PageSize { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public int TotalPages { get; set; }
+
+        public string sort { get; set; }
+
     }
 }

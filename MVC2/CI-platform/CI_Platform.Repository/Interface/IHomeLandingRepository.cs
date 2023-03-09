@@ -9,6 +9,6 @@ namespace CI_Platform.Repository.Interface
 {
     public interface IHomeLandingRepository
     {
-        HomeLandingPageVM GetLandingPageData(string sort, string email);
+        HomeLandingPageVM GetLandingPageData(string sort, string email,int currentPage);
     }
 }

@@ -19,7 +19,7 @@ namespace CI_Platform.Repository.Repository
         }
 
 
-        public HomeLandingPageVM GetLandingPageData(string sort, string email)
+        public HomeLandingPageVM GetLandingPageData(string sort, string email,int currentPage)
         {
             HomeLandingPageVM landingPageVM = new();
 
@@ -33,9 +33,7 @@ namespace CI_Platform.Repository.Repository
  
             //landingPageVM.Cities = _unitOfWork.City.GetAll().Where(c => c.Name != "Undefined");
             missionsList = _unitOfWork.Mission.GetMissionCard();
-            
-
-
+ 
             if (sort == "Newest")
             {
                 landingPageVM.Missions = missionsList.OrderByDescending(m => m.StartDate);
@@ -65,10 +63,24 @@ namespace CI_Platform.Repository.Repository
                 landingPageVM.Missions = missionsList.OrderBy(m => m.Title); ;
             }
 
+            int totalrecords=missionsList.Count();
+            int pageSize = 4;
+            missionsList = missionsList.Skip((currentPage-1)*pageSize).Take(pageSize).ToList();
+            int totalPages = (int)Math.Ceiling(totalrecords /(double) pageSize);
 
+            landingPageVM.Missions = missionsList;
+            landingPageVM.CurrentPage = currentPage;
+            landingPageVM.TotalPages = totalPages;
+            landingPageVM.sort= sort;
+            landingPageVM.PageSize = pageSize;
             landingPageVM.Themes = _unitOfWork.MissionTheme.GetAll();
             landingPageVM.Skills = _unitOfWork.Skill.GetAll();
             return landingPageVM;
         }
+
+        //public HomeLandingPageVM GetMissionPageData(string sort, string email)
+        //{
+
+        //}
     }
 }

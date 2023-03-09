@@ -71,7 +71,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="cityDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 City
                             </a>
-                            <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="cityDropdown" id="cityList">
+                            <ul class="dropdown-menu ps-2 scrollable-menu CardsFilter" aria-labelledby="cityDropdown" id="cityList">
 
                                 @*   <li><button class="dropdown-item countries" value="All" asp-controller="Home" asp-action="HomePage" asp-route-id="0">All</button></li>*@
                                 @* @foreach(var city in Model.Cities)
@@ -92,7 +92,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="themeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Theme
                             </a>
-                            <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="themeDropdown">
+                            <ul class="dropdown-menu ps-2 scrollable-menu CardsFilter" aria-labelledby="themeDropdown" id="ThemeList">
                                 @foreach (var theme in Model.Themes)
                                 {
                                     <li>
@@ -110,7 +110,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="skillsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Skills
                             </a>
-                            <ul class="dropdown-menu ps-2 scrollable-menu" aria-labelledby="skillsDropdown">
+                            <ul class="dropdown-menu ps-2 scrollable-menu CardsFilter" aria-labelledby="skillsDropdown">
                                 @foreach (var skill in Model.Skills)
                                 {
                                     <li>
@@ -315,9 +315,43 @@
         }
       }
     }
+     $("#CountryList li").click(function () {
+ 
+        var countryId = $(this).val();
+        console.log(countryId);
+
+        $('.card-div').each(function () {
+            var cardCountry = $(this).find('.mission-country').text();
+            //console.log(cardCountry);
+
+            if (countryId == cardCountry) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+            GetCitiesByCountry(countryId);
+    });
+
+    function GetCitiesByCountry(countryId){
+    $.ajax({
+            type: "GET",
+            url: "/Mission/GetCitiesByCountry",
+            data: { countryId: countryId },
+            success: function (data) {  
+                var dropdown = $("#cityList");
+                dropdown.empty();
+                var items = "";
+                $(data).each(function (i, item) {
+                    items += `<li> <div class="dropdown-item mb-1 ms-3 form-check"> <input type="checkbox" class="form-check-input" id="exampleCheck1" value=` + item.cityId + `><label class="form-check-label" for="exampleCheck1" value=` + item.cityId + `>` + item.name + `</label></div></li>`
+                })
+                dropdown.html(items);
+            }
+        });
+    }
 
 
-    let filterPills = $('.filter-items');
+    let filterPills = $('#filter-items');
     let allDropdowns = $('.dropdown ul');
     allDropdowns.each(function ()
     {
@@ -330,7 +364,9 @@
                 if ($(this).is(':checked')) 
                 {
                     let selectedOptionText = $(this).next('label').text();
+                     console.log(selectedOptionText);
                     let selectedOptionValue = $(this).val();
+                    console.log(selectedOptionValue);
                     const closeAllButton = filterPills.children('.closeAll');
 
                     // creating a new pill
@@ -355,6 +391,8 @@
                 if (filterPills.children('.pill').length === 1) {
                     filterPills.children('.closeAll').remove();
                 }
+                
+                    FilterMissions();
             });
 
             // Add "Close All" button
@@ -363,6 +401,9 @@
                 filterPills.children('.closeAll').click(function () {
                     allDropdowns.find('input[type="checkbox"]').prop('checked', false);
                     filterPills.empty();
+                    
+                    FilterMissions();
+                    
                 });
 
                 //add the pill before the close icon
@@ -389,16 +430,17 @@
             }
         }
 
-        //FilterMissions();
+        FilterMissions();
     });
 
 })
 
 
-$(".dropdown .CardsFilter").on('change', 'input[type="checkbox"]', function () {
-    console.log('hello');
+//$(".dropdown .CardsFilter").on('change', 'input[type="checkbox"]', function () {
+//    console.log('hello');
+function FilterMissions() { 
 
-    var selectedCities = $('#CityList input[type="checkbox"]:checked').map(function () {
+    var selectedCities = $('#cityList input[type="checkbox"]:checked').map(function () {
         return $(this).next('label').text();
     }).get();
     console.log(selectedCities);
@@ -424,15 +466,29 @@ $(".dropdown .CardsFilter").on('change', 'input[type="checkbox"]', function () {
                 return selectedTheme.trim().toUpperCase() == cardTheme.trim().toUpperCase();
             });
 
-            if (cityFlag) {
-                $(this).show();
+            //if (cityFlag) {
+            //    $(this).show();
+            //} else {
+            //    $(this).hide();
+            //}
+            if (selectedThemes.length === 0) {
+                if (cityFlag) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
             } else {
-                $(this).hide();
+                if (cityFlag && themeFlag) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
             }
         });
     }
-});
 
+}
+//});
 
 //$(".dropdown #ThemeList").on('change', 'input[type="checkbox"]', function () {
 //    console.log('hello');
@@ -479,40 +535,7 @@ $(".dropdown .CardsFilter").on('change', 'input[type="checkbox"]', function () {
 
    
 
-    $("#CountryList li").click(function () {
- 
-        var countryId = $(this).val();
-        console.log(countryId);
-
-        $('.card-div').each(function () {
-            var cardCountry = $(this).find('.mission-country').text();
-            //console.log(cardCountry);
-
-            if (countryId == cardCountry) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-            GetCitiesByCountry(countryId);
-    });
-
-    function GetCitiesByCountry(countryId){
-    $.ajax({
-            type: "GET",
-            url: "/Mission/GetCitiesByCountry",
-            data: { countryId: countryId },
-            success: function (data) {  
-                var dropdown = $("#cityList");
-                dropdown.empty();
-                var items = "";
-                $(data).each(function (i, item) {
-                    items += `<li> <div class="dropdown-item mb-1 ms-3 form-check"> <input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1" value=` + item.cityId + `>` + item.name + `</label></div></li>`
-                })
-                dropdown.html(items);
-            }
-        });
-    }
+   
 
 
 </script>

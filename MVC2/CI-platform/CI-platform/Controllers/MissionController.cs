@@ -28,7 +28,7 @@ namespace CI_platform.Controllers
             return Json(cities);
         }
         
-        public IActionResult HomePage(string sort="")
+        public IActionResult HomePage(string sort="",int currentPage=1)
         {
             var sessionValue = HttpContext.Session.GetString("UserEmail");
             if (String.IsNullOrEmpty(sessionValue))
@@ -92,7 +92,7 @@ namespace CI_platform.Controllers
             //    }
             //}
 
-            HomeLandingPageVM landingPageData = _HomeLandingRepository.GetLandingPageData(sort, sessionValue);
+            HomeLandingPageVM landingPageData = _HomeLandingRepository.GetLandingPageData(sort, sessionValue,currentPage);
 
             return View(landingPageData);
 
