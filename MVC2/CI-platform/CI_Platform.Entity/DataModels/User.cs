@@ -9,28 +9,24 @@ namespace CI_Platform.Entity.DataModels;
 public partial class User
 {
     public long UserId { get; set; }
-    [Required(ErrorMessage = "FirstName is Required")]
-    public string? FirstName { get; set; }
-    [Required(ErrorMessage = "LastName is Required")]
-    public string? LastName { get; set; }
-    [Required(ErrorMessage ="Email is Required")]
-    public string Email { get; set; } = null!;
-    [Required(ErrorMessage ="Password is Required")]
-    public string Password { get; set; } = null!;
 
+    public string? FirstName { get; set; }
+
+    public string? LastName { get; set; }
+
+    public string Email { get; set; } = null!;
+
+    public string Password { get; set; } = null!;
     [NotMapped]
     [Compare("Password")]
     public string ConfirmPassword { get; set; } = null!;
-
-    //[MaxLength(10)]
-    //[MinLength(10)]
-    [Phone]
     public long? PhoneNumber { get; set; }
 
     public string? Avatar { get; set; }
 
     public string? WhyIVolunteer { get; set; }
 
+   
     public string? EmployeeId { get; set; }
 
     public string? Department { get; set; }

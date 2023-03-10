@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CI_Platform.Entity.DataModels;
 
@@ -27,6 +28,8 @@ public partial class Mission
 
     public int? Status { get; set; }
 
+    //[NotMapped]
+    //public int seat_left { get; set; }
     public string? OrganizationName { get; set; }
 
     public string? OrganizationDetail { get; set; }
@@ -38,6 +41,8 @@ public partial class Mission
     public DateTime? UpdatedAt { get; set; }
 
     public DateTime? DeletedAt { get; set; }
+
+    public long? TotalSeats { get; set; }
 
     public virtual City City { get; set; } = null!;
 

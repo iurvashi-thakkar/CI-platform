@@ -18,7 +18,10 @@ namespace CI_Platform.Repository.Repository
         }
         public IEnumerable<Mission> GetMissionCard()
         {
-            var missions = _context.Missions.Include(m => m.City).Include(m => m.Theme);
+            var missions = _context.Missions.Include(m => m.City).Include(m => m.Theme)
+                .Include(m=>m.GoalMissions).Include(m=>m.MissionApplications)
+                .Include(m=>m.MissionRatings).Include(m=>m.MissionMedia).Include(m=>m.MissionSkills).
+                Include(m=>m.FavouriteMissions);
             return missions;
         }
     //    public IEnumerable<Mission> GetMissionSortNew()

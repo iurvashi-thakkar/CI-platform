@@ -11,14 +11,14 @@ namespace CI_platform.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
         private readonly IHomeLandingRepository _HomeLandingRepository;
-
-        public MissionController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, IHomeLandingRepository HomeLandingRepository)
+        //private readonly ApplicationDbContext _context;
+        public MissionController(ApplicationDbContext _context,ILogger<HomeController> logger, IUnitOfWork unitOfWork, IHomeLandingRepository HomeLandingRepository)
         {
             _unitOfWork = unitOfWork;
           
             this._logger = logger;
             _HomeLandingRepository = HomeLandingRepository;
-
+            //_context= _context;
             //_emailService = emailService;
             
         } 
@@ -92,12 +92,39 @@ namespace CI_platform.Controllers
             //    }
             //}
 
-            HomeLandingPageVM landingPageData = _HomeLandingRepository.GetLandingPageData(sort, sessionValue,currentPage);
-
+            //HomeLandingPageVM landingPageData = _HomeLandingRepository.GetLandingPageData(sort, sessionValue,currentPage);
+            HomeLandingPageVM landingPageData = _HomeLandingRepository.GetLandingPageData(sessionValue, currentPage);
             return View(landingPageData);
 
            
         }
+        //public IActionResult AddToFavourites(int missionId)
+        //{
+
+        //    ApplicationDbContext _db = new ApplicationDbContext();
+        //    var userId = HttpContext.Session.GetString("UserId");
+        //    long UserId = Convert.ToInt64(userId);
+        //    var alredyFavourite = _db.FavouriteMissions.SingleOrDefault(m => m.MissionId == missionId && m.UserId == UserId);
+
+        //    if (alredyFavourite == null)
+        //    {
+        //        var newFavourite = new FavouriteMission
+        //        {
+        //            UserId = UserId,
+        //            MissionId = missionId
+        //        };
+
+        //        _db.FavouriteMissions.Add(newFavourite);
+        //        _db.SaveChanges();
+        //    }
+        //    else
+        //    {
+        //        _db.FavouriteMissions.Remove(alredyFavourite);
+        //        _db.SaveChanges();
+        //    }
+
+        //    return RedirectToAction(nameof(HomePage));
+        //}
         //[HttpGet]
         //public IActionResult SortByNew()
         //{
@@ -123,7 +150,32 @@ namespace CI_platform.Controllers
         //    ViewBag.Missions = missionsList;
         //    return View();
         //}
+        //[HttpPost]
+        //public IActionResult AddToFavorites(int missionId)
+        //{
+        //    ApplicationDbContext _db = new ApplicationDbContext();
+        //    string Id = HttpContext.Session.GetString("UserId");
+        //    long userId = long.Parse(Id);
 
+        //    // Check if the mission is already in favorites for the user
+        //    if (_db.FavoriteMissions.Any(fm => fm.MissionId == missionId && fm.UserId == userId))
+        //    {
+        //        // Mission is already in favorites, return an error message or redirect back to the mission page
+        //        var FavoriteMissionId = _context.FavoriteMissions.Where(fm => fm.MissionId == missionId && fm.UserId == userId).FirstOrDefault();
+        //        _context.FavoriteMissions.Remove(FavoriteMissionId);
+        //        _context.SaveChanges();
+        //        return Ok();
+
+        //        //return BadRequest("Mission is already in favorites.");
+        //    }
+
+        //    // Add the mission to favorites for the user
+        //    var favoriteMission = new FavoriteMission { MissionId = missionId, UserId = userId };
+        //    _context.FavoriteMissions.Add(favoriteMission);
+        //    _context.SaveChanges();
+
+        //    return Ok();
+        //}
         public IActionResult MissionDetail()
         {
             return View();

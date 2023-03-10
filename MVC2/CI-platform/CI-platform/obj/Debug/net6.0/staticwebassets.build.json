@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1XfCiXF5OpARaMWnkMSBurgjt8QHxG7iLYowI8R46no=",
+  "Hash": "1e2Bi0G8rQ2DFk9t6J0oVHU6jx+19BwugL2xlCa/e1o=",
   "Source": "CI-platform",
   "BasePath": "_content/CI-platform",
   "Mode": "Default",
@@ -2038,6 +2038,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\xlsx.png"
+    },
+    {
+      "Identity": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\js\\Filter.js",
+      "SourceId": "CI-platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\",
+      "BasePath": "_content/CI-platform",
+      "RelativePath": "js/Filter.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Filter.js"
     },
     {
       "Identity": "C:\\Users\\pca173\\Desktop\\CI-Platform\\MVC2\\CI-platform\\CI-platform\\wwwroot\\js\\site.js",

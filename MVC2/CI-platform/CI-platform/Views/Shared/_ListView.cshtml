@@ -1,116 +1,152 @@
 ﻿@using CI_Platform.Entity.DataModels.ViewModel
 @model HomeLandingPageVM
 <div class="container mt-5 d-none" id="partialList">
-   @* @for(int j = 0; j < 10; j++)
-    {*@
-        @foreach(var mission in Model.Missions)
-        {
-        <div class="card card-div mt-3">
-             <div class="row g-0">
-                   <div class="col-12 col-md-3">
-                       
-                             <img style="position: relative;height:100%;width:100%" src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" class="img-fluid rounded-start" alt="...">
-                                <button class="list-mission-title mission-theme">@mission.Theme.Title</button>
-                            <div class="location-list1">
-                               <img src="~/images/pin1.png" style="margin:6px 10px"/>
-                               <span style="color: #FFFFFF" class="mission-city">@mission.City.Name</span>
-                                                     <button class="favourite"><img src="~/images/heart.png"></button>
-                                    <button class="userdisplay"><img src="~/images/user.png"/>
-</button>
-  
-                           </div>
+    @* @for(int j = 0; j < 10; j++)
+        {*@
+    @foreach (var mission in Model.Missions)
+    {
+
+        var registered_users = mission.MissionApplications.Count(m => m.ApprovalStatus.Contains("APPROVE"));
+        var total_seats = mission.TotalSeats - registered_users;
+        double avg_rating = mission.MissionRatings.Average(r => r.Rating);
+        <div class="card card-div mt-3 list-card">
+            <div class="row g-0">
+                <div class="col-12 col-md-3">
+                    @foreach (var img_mission in mission.MissionMedia)
+                    {
+                        <img style="position: relative;height:100%;width:100%" src=@img_mission.MediaPath class="img-fluid rounded-start" alt="@img_mission.MediaName">
+                    }
+
+                    <button class="list-mission-title mission-theme">@mission.Theme.Title</button>
+                    <div class="location-list1">
+                        <img src="~/images/pin1.png" style="margin:6px 10px" />
+                        <span style="color: #FFFFFF" class="mission-city">@mission.City.Name</span>
+                        <button class="favourite"><img src="~/images/heart.png"></button>
+                        <button class="userdisplay">
+                            <img src="~/images/user.png" />
+                        </button>
+
                     </div>
-    <div class="col-md-8">
-      <div class="card-body">
-          <div class="d-flex justify-content-between">
-       <div class="d-flex">
-                  <div class="mx-3">
-                    <img src="~/images/pin1.png" alt="location-logo">
-              <span class="mission-city">@mission.City.Name</span>
-                  </div>
-                 <div class="mx-3">
-              <img src="~/images/web.png" alt="location-logo">
-              <span class="mission-theme">@mission.Theme.Title</span>
-              </div>
-              <div class="mx-3"> 
-              <img src="~/images/organization.png" alt="location-logo">
-              <span>@mission.OrganizationName</span>
-              </div>
-               </div>
-               <div class="d-flex px-3">
-                        @for(int i= 0; i < 3; i++){
-                             <div>
-                                <img src="~/images/selected-star.png"  alt="rating"/>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="mx-3">
+                                    <img src="~/images/pin1.png" alt="location-logo">
+                                    <span class="mission-city">@mission.City.Name</span>
+                                </div>
+                                <div class="mx-3">
+                                    <img src="~/images/web.png" alt="location-logo">
+                                    <span class="mission-theme">@mission.Theme.Title</span>
+                                </div>
+                                <div class="mx-3">
+                                    <img src="~/images/organization.png" alt="location-logo">
+                                    <span>@mission.OrganizationName</span>
+                                </div>
                             </div>
-                        }
-                        @for(int i= 0; i < 2; i++){
-                             <div>
-                                <img src="~/images/star.png"  alt="rating"/>
+                            <div class="d-flex px-3">
+                                @for (int i = 1; i <= avg_rating; i++)
+                                {
+                                    <div>
+                                        <img src="~/images/selected-star.png" alt="rating" />
+                                    </div>
+                                }
+                                @for (int i = 5; i > avg_rating; i--)
+                                {
+                                    <div>
+                                        <img src="~/images/star.png" alt="rating" />
+                                    </div>
+                                }
+
                             </div>
-                        }
-        </div>
 
 
-             
 
-          </div>
-        <h5 class="card-title custom-card-title">@mission.Title</h5>
-        <p class="card-text"  style="color:#757575">@mission.ShortDescription</p>
-       
-   <div class="d-flex justify-content-between list-card">
 
-               <div class="d-flex">
-                   <div  class="d-flex align-items-center" style="margin-right:30px">
-                       <img src="~/images/Seats-left.png" style="width:30px;height:30px"> 
-                       <div class="d-flex flex-column">
-                             <span>249</span>
-                             <span>Seats left</span>
-                       </div>
-                   </div>
-                   <div  class="d-flex align-items-center"  style="margin-right:30px">
-                       <img src="~/images/mission.png" style="width:30px;height:30px"> 
-                       <div class="d-flex flex-column">
-                            <div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-                        <span>Achieved</span>
-                       </div>
-                       
-           
-                   </div>
-                   <div  class="d-flex align-items-center"  style="margin-right:30px">
-                       <img src="~/images/calender.png" style="width:30px;height:30px"> 
-                       <div class="d-flex flex-column">
-                             <span>from @mission.StartDate.Value.ToShortDateString()</span>
-                        <span>Until @mission.EndDate.Value.ToShortDateString()</span>
-                       </div>
-                   </div>
-                   <div  class="d-flex align-items-center"  style="margin-right:30px">
-                       <img src="~/images/add.png" style="width:30px;height:30px"> 
-                       <div class="d-flex flex-column">
-                             <span>Skills</span>
-                        <span>Botany</span>
-                       </div>
-                   </div>
-              
+                        </div>
+                        <h5 class="card-title custom-card-title">@mission.Title</h5>
+                        <p class="card-text" style="color:#757575">@mission.ShortDescription</p>
+
+                        <div class="d-flex justify-content-between list-card">
+
+                            <div class="d-flex">
+                                <div class="d-flex align-items-center" style="margin-right:30px">
+                                    <img src="~/images/Seats-left.png" style="width:30px;height:30px">
+                                    <div class="d-flex flex-column">
+                                        <span>@total_seats</span>
+                                        <span>Seats left</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center" style="margin-right:30px">
+                                    <img src="~/images/mission.png" style="width:30px;height:30px">
+                                    <div class="d-flex flex-column">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span>Achieved</span>
+                                    </div>
+
+
+                                </div>
+                                <div class="d-flex align-items-center" style="margin-right:30px">
+                                    @if (mission.MissionType.Equals("Time"))
+                                    {
+                                        <img src="~/images/calender.png" style="width:30px;height:30px">
+                                        <div class="d-flex flex-column">
+                                            <span>from @mission.StartDate.Value.ToShortDateString()</span>
+                                            <span>Until @mission.EndDate.Value.ToShortDateString()</span>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        @foreach (var goal_mission in mission.GoalMissions)
+                                        {
+
+
+                                            <button style="width:273px;background: #FFFFFF 0% 0% no-repeat padding-box;
+border: 1px solid #E8E8E8;
+border-radius: 18px;
+opacity: 1;color: #414141">
+                                                @goal_mission.GoalObjectiveText
+                                            </button>
+                                        }
+
+                                    }
+
+                                </div>
+                                <div class="d-flex align-items-center" style="margin-right:30px">
+                                    <img src="~/images/add.png" style="width:30px;height:30px">
+                                    <div class="d-flex flex-column">
+                                        <span>Skills</span>
+                                        @foreach (var mission_skill in mission.MissionSkills)
+                                        {
+                                             <span>@mission_skill.Skill.SkillName</span>
+                                        }
+                                       
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div>
+                                <a asp-controller="Home" asp-action="StoryListing">
+                                    <button style="background-color:white;border-radius:24px;border:2px solid #F88634;color:#F88634">
+                                        View Details
+                                        <img src="~/images/right-arrow.png">
+                                    </button>
+                                </a>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
             </div>
-
-           <div>
-                 <a asp-controller="Home" asp-action="StoryListing">
-           <button style="background-color:white;border-radius:24px;border:2px solid #F88634;color:#F88634">
-               View Details
-               <img src="~/images/right-arrow.png">
-           </button></a>
-           </div>
-   
-   </div>
-    
-
-
-      </div>
-    </div>
-</div>
-</div>
+        </div>
     }
- @*   }*@
+    @*   }*@
 </div>
