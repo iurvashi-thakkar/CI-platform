@@ -90,7 +90,7 @@ namespace CI_Platform.Repository.Repository
 
             landingPageVM.LoggedUser = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
             landingPageVM.Countries = _unitOfWork.Country.GetAll();
-            //landingPageVM.UserList = _unitOfWork.User.GetAll().Where(u => u.Email != email);
+            landingPageVM.UserList = _unitOfWork.User.GetAll().Where(u => u.Email != email);
            
             IEnumerable<Mission> missionsList;
             landingPageVM.Cities = _unitOfWork.City.GetAll();

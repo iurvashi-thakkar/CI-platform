@@ -19,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IHomeLandingRepository,HomeLandingRepository>();
+builder.Services.AddScoped<IMissionLandingRepository, MissionLandingRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(

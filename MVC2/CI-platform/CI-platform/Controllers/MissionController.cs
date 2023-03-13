@@ -11,24 +11,26 @@ namespace CI_platform.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
         private readonly IHomeLandingRepository _HomeLandingRepository;
+        private readonly IMissionLandingRepository _MissionLandingRepository;
         //private readonly ApplicationDbContext _context;
-        public MissionController(ApplicationDbContext _context,ILogger<HomeController> logger, IUnitOfWork unitOfWork, IHomeLandingRepository HomeLandingRepository)
+        public MissionController(ApplicationDbContext _context, ILogger<HomeController> logger, IUnitOfWork unitOfWork, IHomeLandingRepository HomeLandingRepository, IMissionLandingRepository MissionLandingRepository)
         {
             _unitOfWork = unitOfWork;
-          
+
             this._logger = logger;
             _HomeLandingRepository = HomeLandingRepository;
+            _MissionLandingRepository = MissionLandingRepository;
             //_context= _context;
             //_emailService = emailService;
-            
-        } 
+
+        }
         public IActionResult GetCitiesByCountry(long countryId)
         {
-            var cities = _unitOfWork.City.GetAll().Where(c=>c.CountryId== countryId).ToList();
+            var cities = _unitOfWork.City.GetAll().Where(c => c.CountryId == countryId).ToList();
             return Json(cities);
         }
-        
-        public IActionResult HomePage(string sort="",int currentPage=1)
+
+        public IActionResult HomePage(string sort = "", int currentPage = 1)
         {
             var sessionValue = HttpContext.Session.GetString("UserEmail");
             if (String.IsNullOrEmpty(sessionValue))
@@ -96,7 +98,7 @@ namespace CI_platform.Controllers
             HomeLandingPageVM landingPageData = _HomeLandingRepository.GetLandingPageData(sessionValue, currentPage);
             return View(landingPageData);
 
-           
+
         }
         //public IActionResult AddToFavourites(int missionId)
         //{
@@ -176,8 +178,47 @@ namespace CI_platform.Controllers
 
         //    return Ok();
         //}
-        public IActionResult MissionDetail()
+
+      
+        
+        public IActionResult MissionDetail(long missionId)
         {
+            var sessionValue = HttpContext.Session.GetString("UserEmail");
+            if (String.IsNullOrEmpty(sessionValue))
+            {
+                TempData["error"] = "Session Expired!\nPlease Login Again!";
+                return RedirectToAction("Index");
+            }
+
+            HomeLandingPageVM MissionlandingPageData = _MissionLandingRepository.GetMissionPageData(sessionValue,missionId);
+            return View(MissionlandingPageData);
+        }
+
+        [HttpPost]
+        public IActionResult AddRating(long missionId, long userId, int rating)
+        {
+            var mission_user_rating = _unitOfWork.MissionRating.GetFirstOrDefault(u => (u.UserId == userId) && (u.MissionId == missionId));
+            if (mission_user_rating == null)
+            {
+                _unitOfWork.MissionRating.Add(new MissionRating
+                {
+                    MissionId = missionId,
+                    UserId = userId,
+                    Rating = rating,
+
+                });
+            }
+            else
+            {
+                _unitOfWork.MissionRating.UpdateRating(mission_user_rating, rating);
+            }
+            _unitOfWork.Save();
+            var sessionValue = HttpContext.Session.GetString("UserEmail");
+            if (String.IsNullOrEmpty(sessionValue))
+            {
+                TempData["error"] = "Session Expired!\nPlease Login Again!";
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }

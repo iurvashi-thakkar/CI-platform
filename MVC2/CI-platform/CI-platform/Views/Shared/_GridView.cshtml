@@ -8,13 +8,13 @@
         {
             var registered_users = mission.MissionApplications.Count(m => m.ApprovalStatus.Contains("APPROVE"));
             var total_seats = mission.TotalSeats - registered_users;
-           double avg_rating = mission.MissionRatings.Average(r => r.Rating);
+            double avg_rating = mission.MissionRatings.Average(r => r.Rating);
 
 
 
-          
-            
-            
+
+
+
             <div class="col card-div">
                 <div class="card h-100 grid-card">
                     <span class="d-none created-date">@mission.StartDate </span>
@@ -23,7 +23,7 @@
                         {
                             <img src=@img_mission.MediaPath class="card-img-top" alt="@img_mission.MediaName">
                         }
-                        
+
                         <span class="d-none mission-country">@mission.Country.CountryId</span>
                         <button class="me-2 btn bg-black bg-opacity-50 position-absolute top-0 end-0 p-2 rounded-pill text-decoration-none text-white">
                             <a href="" class="text-decoration-none text-white">
@@ -31,32 +31,36 @@
                                 <span class="mission-city" style="color:white">@mission.City.Name</span>
                             </a>
                         </button>
-                       @* <button class="me-2 btn bg-black bg-opacity-50 position-absolute top-50 end-0 p-2 rounded-pill favorite-button" onclick="addToFavourites(@mission.MissionId)">
+                         <button class="me-2 btn bg-black bg-opacity-50 position-absolute top-50 end-0 p-2 rounded-pill favorite-button" onclick="addToFavourites(@mission.MissionId)">
                             <a href="" class="text-decoration-none text-white">
-                                <img src="~/images/heart.png" alt="" class="img-fluid">
+                            <img src="~/images/heart.png" alt="" class="img-fluid">
                             </a>
-                        </button>*@
-                        @{
-                                    var flag = 1;
-                                }
-                                @foreach (var fm in mission.FavouriteMissions)
-                                {
-                                    @if (fm.UserId.Equals())
-                                    {
-                                        <i class="bi bi-heart-fill favorite-button filled-heart text-danger"  data-mission-id="@mission.MissionId"></i>
-                                        flag = 0;
-                                    }
+                            </button>
 
-                                }
-                                @if (flag == 1)
-                                {
-                                       <i class="bi bi-heart favorite-button empty-heart text-light" data-mission-id="@mission.MissionId"></i>
-                                }
-                        <button class="me-2 btn bg-black bg-opacity-50 position-absolute bottom-0 end-0 p-2 rounded-pill">
-                            <a href="" class="text-decoration-none text-white">
+                        <button class="me-2 btn bg-black bg-opacity-50 position-absolute bottom-0 end-0 p-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal" type="button">
+                           <a href="" class="text-decoration-none text-white">
                                 <img src="~/images/user.png" alt="" class="img-fluid">
                             </a>
                         </button>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                    @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                       Hello
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
                         <div class="position-absolute top-100 start-50 translate-middle bg-white rounded-pill px-3 py-2">
                             <span class="mission-theme">@mission.Theme.Title</span>
                         </div>
@@ -111,13 +115,13 @@ opacity: 1;color: #414141">
                                     opacity: 1;color: #414141">@mission.GoalMissions.GoalObjectiveText</button>*@
                                 @foreach (var goal_mission in mission.GoalMissions)
                                 {
-                                
+
 
                                     <button style="width:273px;background: #FFFFFF 0% 0% no-repeat padding-box;
 border: 1px solid #E8E8E8;
 border-radius: 18px;
 opacity: 1;color: #414141">
-                                       @goal_mission.GoalObjectiveText
+                                        @goal_mission.GoalObjectiveText
                                     </button>
                                 }
                             }
@@ -158,13 +162,16 @@ opacity: 1;color: #414141">
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-center">
-                        <a asp-controller="Mission" asp-action="MissionDetail">
-                            <button class="grid-card-btn">
-                                <span style="text-align: left;
+                        <form asp-controller="Mission" asp-action="MissionDetail" asp-route-missionId="@mission.MissionId">
+                            <a>
+                                <button class="grid-card-btn apply-mission" data-mission-id="@mission.MissionId" type="submit">
+                                    <span style="text-align: left;
 letter-spacing: 0px;
 color: #F88634">Apply</span>
-                            </button>
-                        </a>
+                                </button>
+                            </a>
+                        </form>
+
                     </div>
                 </div>
             </div>

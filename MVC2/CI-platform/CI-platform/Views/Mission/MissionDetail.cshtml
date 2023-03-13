@@ -1,6 +1,11 @@
-﻿
+﻿@*
 @{
     ViewData["Title"] = "MissionPage";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}*@
+@using CI_Platform.Entity.DataModels.ViewModel
+@model HomeLandingPageVM
+@{
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 <style>
@@ -9,7 +14,37 @@
         --bs-gutter-y: 0;
     }
 </style>
+<script>
+function CRateOut(rating){
+    for(var i=1;i<=rating;i++){
+        $("#span"+i).attr('class','bi bi-star')
+    }
+}
+function CRateOver(rating){
+    for(var i=1;i<=rating;i++){
+        $("#span"+i).attr('class','bi bi-star-fill')
+    }
+}
+function CRateClick(rating){
+    $('#lblRating').val(rating);
+    for(var i=1;i<=rating;i++){
+        $("#span"+i).attr('class','bi bi-star-fill')
+    }
+     for(var i=rating+1;i<=5;i++){
+        $("#span"+i).attr('class','bi bi-star')
+    }
+}
+function CRateSelected(){
+    var rating=$('#lblRating').val();
+for(var i=1;i<=rating;i++){
+        $("#span"+i).attr('class','bi bi-star-fill')
+    }
+}
+ 
+</script>
+
 <body>
+
     <div class="container p-0">
         <div class="row p-0">
             <div class="col-lg-6 col-12 p-0 mt-4">
@@ -58,25 +93,38 @@
 
             <div class="col-lg-6 col-12 mt-5">
                 <div class="row px-3">
-                    <h2>CSR initiative stands for Coffee & Farmer Equity</h2>
+                    <h2>@Model.AppliedMission.Title</h2>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim ad minim veniam.
+                       @Model.AppliedMission.Description
                     </p>
 
                     <div class="col">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-3">
                                 <hr />
                             </div>
-                            <div class="col-4 d-flex justify-content-center">
+                            <div class="col-6 d-flex justify-content-center">
+                                @if (@Model.AppliedMission.MissionType.Equals("Time"))
+                                {
+                                        <button class="header-btn">  From @Model.AppliedMission.StartDate.Value.ToShortDateString() until @Model.AppliedMission.EndDate.Value.ToShortDateString()</button>
 
-                                <button class="header-btn">Plant 10,000 Trees</button>
-
+                                }   
+                              @if(@Model.AppliedMission.MissionType.Equals("Goal"))
+                            {
+                            
+                              @foreach (var goal_mission in @Model.AppliedMission.GoalMissions)
+                                {
+                                
+                                   
+                                    <button class="header-btn">
+                                    @goal_mission.GoalObjectiveText
+                                    </button>
+                                }
+                            }
+                            
 
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <hr />
                             </div>
                         </div>
@@ -86,7 +134,22 @@
                         <div class="d-flex align-items-center">
                             <img src="~/images/Seats-left.png" alt="" style="margin-right:10px;width:30px;height:30px" />
                             <div class="d-flex flex-column">
-                                <span>10</span>
+                               
+                                    
+                                    @foreach(var seat in Model.Missions){
+                                        var registered_users = @Model.AppliedMission.MissionApplications.Count(m => m.ApprovalStatus.Contains("APPROVE"));
+                                        Console.WriteLine(registered_users);
+                                        var total_seats = @Model.AppliedMission.TotalSeats- registered_users;
+                                         <span>
+                                             @total_seats </span>
+                                    }
+                                       
+            
+                                    
+                                
+                               
+                                
+                               
                                 <span>Seats Left</span>
                             </div>
                         </div>
@@ -113,16 +176,29 @@
 
                     <div class="col mt-3">
 
+                        <form method="post" asp-action="AddRating" asp-controller="Mission">
+                            <div class="d-flex justify-content-center" onmouseout="CRateSelected()">
+@*                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
+                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
+                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
+                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
+                            <img src="~/images/star-empty.png" alt="" style="width:25px" />*@
 
-                        <div class="d-flex justify-content-center">
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
+                            <span id="span1" onmouseout="CRateOut(1)" onmouseover="CRateOver(1)" onClick="CRateClick(1)" class="bi bi-star"></span>
+                              <span id="span2"  onmouseout="CRateOut(2)" onmouseover="CRateOver(2)" onClick="CRateClick(2)" class="bi bi-star"></span>
+                              <span id="span3"  onmouseout="CRateOut(3)" onmouseover="CRateOver(3)" onClick="CRateClick(3)" class="bi bi-star"></span>
+                               <span id="span4"  onmouseout="CRateOut(4)" onmouseover="CRateOver(4)" onClick="CRateClick(4)" class="bi bi-star"></span>
+                                <span id="span5"  onmouseout="CRateOut(5)" onmouseover="CRateOver(5)" onClick="CRateClick(5)" class="bi bi-star"></span>
                         </div>
+                        <div>
+                            <input type="hidden" name="rating" id="lblRating"/>
+                             <input type="hidden" name="MissionId" id="lblRating" value="@Model.AppliedMission.MissionId"/>
+                              <input type="hidden" name="UserId" value="@Model.LoggedUser.UserId" id="lblRating"/>
+                        </div>
+                        <button type="submit">submit rating</button>
+                        </form>
 
-
+                        
 
                     </div>
                     <div class="d-flex mt-3 mission-info-card">
@@ -132,7 +208,7 @@
                             </div>
                             <div class="mt-2">
                                 <span>City</span>
-                                <p><b>London</b></p>
+                                <p><b>@Model.AppliedMission.City.Name</b></p>
                             </div>
                         </div>
                         <div class="d-flex  header-card-text header-card justify-content-around p-3">
@@ -141,7 +217,7 @@
                             </div>
                             <div class="mt-2">
                                 <span>Theme</span>
-                                <p><b>Environment</b></p>
+                                <p><b>@Model.AppliedMission.Theme.Title</b></p>
                             </div>
                         </div>
                         <div class="d-flex  header-card-text header-card justify-content-around p-3">
@@ -159,7 +235,7 @@
                             </div>
                             <div class="mt-2">
                                 <span>Organization</span>
-                                <p><b>CSE Network</b></p>
+                                <p><b>@Model.AppliedMission.OrganizationName</b></p>
                             </div>
                         </div>
                     </div>
@@ -190,20 +266,10 @@
                     <div class="tab-pane fade show active mt-3 px-3" id="home" role="tabpanel" aria-labelledby="mission-tab">
                         <h3>Introduction</h3>
                         <p style="font-size:15px">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in
+                            @Model.AppliedMission.ShortDescription
                             <br>
                             <br>
-
-                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
-                            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                            ea commodo consequat.Duis aute irure dolor in reprehenderit in
+                            @Model.AppliedMission.Description
                             <br>
                             <br>
                             voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -241,23 +307,10 @@
                         <h3>Introduction</h3>
 
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum.
+                            @Model.AppliedMission.OrganizationName
                             <br>
                             <br>
-                            Lorem ipsum
-                            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                            ea commodo consequat.Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                            officia deserunt mollit anim id est laborum.
+                       @Model.AppliedMission.OrganizationDetail
                         </p>
 
 
@@ -327,21 +380,35 @@
                         
                             <div class="d-flex flex-column px-3 mt-3">
 
-                            <p class="m-0 p-0 d-inline">Skill<span class="ps-3">Cool,Easy going,Math,Computer</span></p>
+                            <p class="m-0 p-0 d-inline">Skill<span class="ps-3"> 
+                                        
+                                             <span>
+                                               @*  @foreach(var skillname in @Model.AppliedMission.MissionSkills){@skillname.Skill.SkillName}*@</span>
+                                        </span></p>
                             
                             <hr />
-                            <p class="m-0 p-0">Days<span  class="ps-3">Weekend Only</span></p>
+                            <p class="m-0 p-0">Days<span  class="ps-3">@Model.AppliedMission.Availability</span></p>
                             <hr />
                             <p class="m-0 pb-3">Rating
+                                @{double avg_rating = @Model.AppliedMission.MissionRatings.Average(r => r.Rating);
                                 <span class="ps-3">
-                                    @for(int i = 0; i < 5; i++)
+                                    
+                                   @for (int i = 1; i <= avg_rating; i++)
                                 {
-                                <img src="~/images//selected-star.png" alt="rating-star" />
-
+                                    
+                                        <img src="~/images/selected-star.png" alt="rating" />
+                                   
                                 }
-                                <span>(By 125 Volunteers)</span>
-                                </span>
+                                @for (int i = 5; i > avg_rating; i--)
+                                {
+                                    
+                                        <img src="~/images/star.png" alt="rating" />
+                                    
+                                }
+
+                                <span>(By @Model.AppliedMission.MissionRatings.Count() Volunteers</span>
                                 
+                                </span>}
                             </p>
 
                         </div>

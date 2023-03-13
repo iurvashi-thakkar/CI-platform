@@ -24,9 +24,19 @@ namespace CI_Platform.Repository.Repository
                 Include(m=>m.FavouriteMissions);
             return missions;
         }
-    //    public IEnumerable<Mission> GetMissionSortNew()
-    //    {
-    //        var missionSortNew=_context.Missions.OrderBy<Mission, CreatedAt>
-    //    }
+        public IEnumerable<Mission> GetMissionCardById(long id)
+        {
+            var missionBYId = _context.Missions.Include(m => m.City).Include(m => m.Theme)
+                .Include(m => m.GoalMissions).Include(m => m.MissionApplications)
+                .Include(m => m.MissionRatings).Include(m => m.MissionMedia).Include(m => m.MissionSkills).
+                Include(m => m.FavouriteMissions).Where(m=>m.MissionId==id);
+           
+            return missionBYId;
+        }
+
+        //    public IEnumerable<Mission> GetMissionSortNew()
+        //    {
+        //        var missionSortNew=_context.Missions.OrderBy<Mission, CreatedAt>
+        //    }
     }
 }

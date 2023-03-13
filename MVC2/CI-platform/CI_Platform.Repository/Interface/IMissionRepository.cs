@@ -10,6 +10,7 @@ namespace CI_Platform.Repository.Interface
     public interface IMissionRepository:IRepository<Mission>
     {
         public IEnumerable<Mission> GetMissionCard();
+        public IEnumerable<Mission> GetMissionCardById(long id);
         //public IEnumerable<Mission> GetMissionSortNew();
     }
 }
