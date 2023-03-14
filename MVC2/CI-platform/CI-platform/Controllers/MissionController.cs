@@ -159,28 +159,29 @@ namespace CI_platform.Controllers
         //    string Id = HttpContext.Session.GetString("UserId");
         //    long userId = long.Parse(Id);
 
-        //    // Check if the mission is already in favorites for the user
+        //    Check if the mission is already in favorites for the user
         //    if (_db.FavoriteMissions.Any(fm => fm.MissionId == missionId && fm.UserId == userId))
-        //    {
-        //        // Mission is already in favorites, return an error message or redirect back to the mission page
-        //        var FavoriteMissionId = _context.FavoriteMissions.Where(fm => fm.MissionId == missionId && fm.UserId == userId).FirstOrDefault();
-        //        _context.FavoriteMissions.Remove(FavoriteMissionId);
-        //        _context.SaveChanges();
-        //        return Ok();
+        //        {
+        //            Mission is already in favorites, return an error message or redirect back to the mission page
+        //           var FavoriteMissionId = _context.FavoriteMissions.Where(fm => fm.MissionId == missionId && fm.UserId == userId).FirstOrDefault();
+        //            _context.FavoriteMissions.Remove(FavoriteMissionId);
+        //            _context.SaveChanges();
+        //            return Ok();
 
-        //        //return BadRequest("Mission is already in favorites.");
-        //    }
+        //            return BadRequest("Mission is already in favorites.");
+        //        }
 
-        //    // Add the mission to favorites for the user
-        //    var favoriteMission = new FavoriteMission { MissionId = missionId, UserId = userId };
+        //    Add the mission to favorites for the user
+
+        //   var favoriteMission = new FavoriteMission { MissionId = missionId, UserId = userId };
         //    _context.FavoriteMissions.Add(favoriteMission);
         //    _context.SaveChanges();
 
         //    return Ok();
         //}
 
-      
-        
+
+
         public IActionResult MissionDetail(long missionId)
         {
             var sessionValue = HttpContext.Session.GetString("UserEmail");
@@ -213,13 +214,107 @@ namespace CI_platform.Controllers
                 _unitOfWork.MissionRating.UpdateRating(mission_user_rating, rating);
             }
             _unitOfWork.Save();
+            TempData["success"] = "Rating Successfull";
             var sessionValue = HttpContext.Session.GetString("UserEmail");
             if (String.IsNullOrEmpty(sessionValue))
             {
                 TempData["error"] = "Session Expired!\nPlease Login Again!";
                 return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("MissionDetail","Mission",new {missionId});
+        }
+
+
+        [HttpPost]
+        public IActionResult AddComment(long missionId, long userId,string comment_text)
+        {
+            var sessionValue = HttpContext.Session.GetString("UserEmail");
+            if (String.IsNullOrEmpty(sessionValue))
+            {
+                TempData["error"] = "Session Expired!\nPlease Login Again!";
+                return RedirectToAction("Index");
+            }
+            var mission_user_comment = _unitOfWork.MissionComment.GetFirstOrDefault(u => (u.UserId == userId) && (u.MissionId == missionId));
+            if (mission_user_comment == null)
+            {
+                _unitOfWork.MissionComment.Add(new Comment
+                {
+                    MissionId = missionId,
+                    UserId = userId,
+                    CommentText= comment_text,
+                });
+            }
+            //else
+            //{
+            //    _unitOfWork.MissionRating.UpdateC(mission_user_comment, comment_text);
+            //}
+            _unitOfWork.Save();
+            TempData["success"] = "Comment Added!Thank You For Your Comment";
+
+            return RedirectToAction("MissionDetail", "Mission", new { missionId });
+        }
+        [HttpPost]
+        public IActionResult AddToFavorites(long missionId, long userId)
+        {
+            //string Id = HttpContext.Session.GetString("UserId");
+            //long userId = long.Parse(Id);
+            //var sessionValue = HttpContext.Session.GetString("UserEmail");
+
+            // Check if the mission is already in favorites for the user
+            var mission_user_favourite = _unitOfWork.FavoriteMission.GetFirstOrDefault(u => (u.UserId == userId) && (u.MissionId == missionId));
+            if (mission_user_favourite!=null)
+            {
+                // Mission is already in favorites, return an error message or redirect back to the mission page
+                var FavoriteMissionId = _unitOfWork.FavoriteMission.GetFirstOrDefault(u => (u.UserId == userId) && (u.MissionId == missionId));
+                _unitOfWork.FavoriteMission.Remove(FavoriteMissionId);
+                _unitOfWork.Save();
+                return Ok();
+              
+
+                //return BadRequest("Mission is already in favorites.");
+            }
+
+            // Add the mission to favorites for the user
+            _unitOfWork.FavoriteMission.Add(new FavouriteMission
+            {
+                MissionId = missionId,
+                UserId = userId,
+            });
+            TempData["success"] = "Added To Favourite Mission";
+            _unitOfWork.Save();
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult AddToFavorite(long missionId, long userId)
+        {
+            //string Id = HttpContext.Session.GetString("UserId");
+            //long userId = long.Parse(Id);
+            //var sessionValue = HttpContext.Session.GetString("UserEmail");
+
+            // Check if the mission is already in favorites for the user
+            var mission_user_favourite = _unitOfWork.FavoriteMission.GetFirstOrDefault(u => (u.UserId == userId) && (u.MissionId == missionId));
+            if (mission_user_favourite != null)
+            {
+                // Mission is already in favorites, return an error message or redirect back to the mission page
+                var FavoriteMissionId = _unitOfWork.FavoriteMission.GetFirstOrDefault(u => (u.UserId == userId) && (u.MissionId == missionId));
+                _unitOfWork.FavoriteMission.Remove(FavoriteMissionId);
+                _unitOfWork.Save();
+                return RedirectToAction("MissionDetail", "Mission", new { missionId });
+
+
+                //return BadRequest("Mission is already in favorites.");
+            }
+
+            // Add the mission to favorites for the user
+            _unitOfWork.FavoriteMission.Add(new FavouriteMission
+            {
+                MissionId = missionId,
+                UserId = userId,
+            });
+            TempData["success"] = "Added To Favourite Mission";
+            _unitOfWork.Save();
+            return RedirectToAction("MissionDetail", "Mission", new { missionId });
         }
     }
 }

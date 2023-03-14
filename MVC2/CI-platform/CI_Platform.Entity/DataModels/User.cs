@@ -20,13 +20,14 @@ public partial class User
     [NotMapped]
     [Compare("Password")]
     public string ConfirmPassword { get; set; } = null!;
+
+
     public long? PhoneNumber { get; set; }
 
     public string? Avatar { get; set; }
 
     public string? WhyIVolunteer { get; set; }
 
-   
     public string? EmployeeId { get; set; }
 
     public string? Department { get; set; }
@@ -48,10 +49,14 @@ public partial class User
     public DateTime? UpdatedAt { get; set; }
 
     public DateTime? DeletedAt { get; set; }
+
     [ValidateNever]
     public virtual City City { get; set; } = null!;
 
+
+
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
+
     [ValidateNever]
     public virtual Country Country { get; set; } = null!;
 

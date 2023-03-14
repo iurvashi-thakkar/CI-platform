@@ -550,6 +550,44 @@ $('#sortByDropdown li').on('click', function () {
 //    });
 //});
 
+
+$('.favorite-button').click(function () {
+    var button = $(this)
+    var missionId = $(this).data('mission-id');
+    var userId = $(this).data('user-id');
+    console.log(missionId);
+    console.log(userId);
+    $.ajax({
+        url: '/Mission/AddToFavorites',
+        type: 'POST',
+        data: { missionId: missionId, userId: userId },
+        success: function (result) {
+            // Show a success message or update the UI
+            console.log(missionId)
+            console.log(userId)
+            var allMissionId = $('.favorite-button')
+            allMissionId.each(function () {
+                if ($(this).data('mission-id') === missionId) {
+                    if ($(this).hasClass('bi-heart')) {
+                        $(this).addClass('bi-heart-fill text-danger')
+                        $(this).removeClass('bi-heart text-light')
+                        console.log("added")
+                    }
+                    else {
+                        $(this).addClass('bi-heart text-light')
+                        $(this).removeClass('bi-heart-fill text-danger')
+                        console.log("remove")
+                    }
+                }
+            })
+        },
+        error: function (error) {
+            // Show an error message or handle the error
+            console.log("error")
+
+        }
+    });
+});
    
 
 

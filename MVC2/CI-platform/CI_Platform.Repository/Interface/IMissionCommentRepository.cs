@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace CI_Platform.Repository.Interface
 {
-    public interface IFavouriteMissionRepository:IRepository<FavouriteMission>
+    public interface IMissionCommentRepository:IRepository<Comment>
     {
-
     }
 }

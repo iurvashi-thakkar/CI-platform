@@ -24,6 +24,10 @@ namespace CI_Platform.Repository.Repository
         public IMissionRepository Mission { get; private set; }
 
         public IMissionRatingRepository MissionRating { get; private set; }
+
+        public IFavouriteMissionRepository FavoriteMission { get; private set;}
+
+        public IMissionCommentRepository MissionComment { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
@@ -34,7 +38,10 @@ namespace CI_Platform.Repository.Repository
             MissionTheme = new MissionThemeRepository(_db);
             Skill = new SkillRepository(_db);
             Mission = new MissionRepository(_db);
+            FavoriteMission = new FavouriteMissionRepository(_db);
             MissionRating = new MissionRatingRepository(_db);
+            MissionComment= new MissionCommentRepository(_db);
+            
         }
 
         public void Save()

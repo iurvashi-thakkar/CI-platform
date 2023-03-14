@@ -26,7 +26,7 @@ namespace CI_Platform.Repository.Repository
             landingPageVM.AppliedMission= _unitOfWork.Mission.GetFirstOrDefault(u=>u.MissionId== missionId);
 
             //landingPageVM.Countries = _unitOfWork.Country.GetAll();
-            //landingPageVM.UserList = _unitOfWork.User.GetAll().Where(u => u.Email != email);
+            landingPageVM.UserList = _unitOfWork.User.GetAll().Where(u => u.Email != email);
 
             IEnumerable<Mission> missionsList;
             //landingPageVM.Cities = _unitOfWork.City.GetAll();

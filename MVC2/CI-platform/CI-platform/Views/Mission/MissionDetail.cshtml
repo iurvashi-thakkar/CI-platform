@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }*@
 @using CI_Platform.Entity.DataModels.ViewModel
+@using System.Globalization
 @model HomeLandingPageVM
 @{
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
@@ -13,31 +14,34 @@
         --bs-gutter-x: 0;
         --bs-gutter-y: 0;
     }
+    .yellow-color {
+    color:#F88634;
+    }
 </style>
 <script>
 function CRateOut(rating){
     for(var i=1;i<=rating;i++){
-        $("#span"+i).attr('class','bi bi-star')
+        $("#span_"+i).attr('class','bi bi-star')
     }
 }
 function CRateOver(rating){
     for(var i=1;i<=rating;i++){
-        $("#span"+i).attr('class','bi bi-star-fill')
+        $("#span_"+i).attr('class','bi bi-star-fill  yellow-color')
     }
 }
 function CRateClick(rating){
     $('#lblRating').val(rating);
     for(var i=1;i<=rating;i++){
-        $("#span"+i).attr('class','bi bi-star-fill')
+        $("#span_"+i).attr('class','bi bi-star-fill  yellow-color')
     }
      for(var i=rating+1;i<=5;i++){
-        $("#span"+i).attr('class','bi bi-star')
+        $("#span_"+i).attr('class','bi bi-star')
     }
 }
 function CRateSelected(){
     var rating=$('#lblRating').val();
 for(var i=1;i<=rating;i++){
-        $("#span"+i).attr('class','bi bi-star-fill')
+        $("#span_"+i).attr('class','bi bi-star-fill  yellow-color')
     }
 }
  
@@ -109,7 +113,7 @@ for(var i=1;i<=rating;i++){
                                         <button class="header-btn">  From @Model.AppliedMission.StartDate.Value.ToShortDateString() until @Model.AppliedMission.EndDate.Value.ToShortDateString()</button>
 
                                 }   
-                              @if(@Model.AppliedMission.MissionType.Equals("Goal"))
+                             @if(@Model.AppliedMission.MissionType.Equals("Goal"))
                             {
                             
                               @foreach (var goal_mission in @Model.AppliedMission.GoalMissions)
@@ -167,39 +171,88 @@ for(var i=1;i<=rating;i++){
                         </div>
                     </div>
                     <hr class="mt-3" />
-                    <div class="d-flex justify-content-between fav-btn">
-                        <button class="header-btn" style="width:320px;height:50px"><img src="~/images/heart1.png" style="margin-right: 20px;" />Add to Favourite</button>
+                    @{
+
+                        var flag = 1;
+                        <div class="d-flex justify-content-between fav-btn">
+                         <form method="post" asp-action="AddToFavorite" asp-controller="Mission">
+                         <input type="hidden" name="missionId" value="@Model.AppliedMission.MissionId"/>
+                                    <input type="hidden" name="userId" value="@Model.LoggedUser.UserId"/>
+                        @foreach(var favourite in Model.AppliedMission.FavouriteMissions)
+                        {
+                             @if (favourite.UserId.Equals(@Model.LoggedUser.UserId))
+                                    {
+                                    //<img src="~/images/heart1.png" style="margin-right: 20px;"  />
+                                    
+                                    <button class="header-btn" style="width:320px;height:50px;">
+                                          <i class="bi bi-heart-fill text-danger">Added To Favourites</i>
+                                        </button>
+                                  
+                                      flag = 0;
+                                }
+                        }
+                             @if(flag==1)
+                                {<button class="header-btn" style="width:320px;height:50px" type="submit">
+                                    <i class="bi bi-heart" style="color:black">Add To Favourites</i>
+                                    </button>
+                                }
+                         
+                        
+                       </form>
                         <button class="header-btn" style="width:320px;height:50px"><img src="~/images/heart1.png" style="margin-right: 20px;" />Recommend to Co-Worker</button>
 
                     </div>
 
-
+                    }
                     <div class="col mt-3">
 
-                        <form method="post" asp-action="AddRating" asp-controller="Mission">
-                            <div class="d-flex justify-content-center" onmouseout="CRateSelected()">
-@*                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />
-                            <img src="~/images/star-empty.png" alt="" style="width:25px" />*@
+                        @*@foreach(var rate in @Model.AppliedMission.FavouriteMissions){
+                            @if (@rate.MissionId == @Model.AppliedMission.MissionId && @rate.UserId==@Model.LoggedUser.UserId)
+                            {
 
-                            <span id="span1" onmouseout="CRateOut(1)" onmouseover="CRateOver(1)" onClick="CRateClick(1)" class="bi bi-star"></span>
-                              <span id="span2"  onmouseout="CRateOut(2)" onmouseover="CRateOver(2)" onClick="CRateClick(2)" class="bi bi-star"></span>
-                              <span id="span3"  onmouseout="CRateOut(3)" onmouseover="CRateOver(3)" onClick="CRateClick(3)" class="bi bi-star"></span>
-                               <span id="span4"  onmouseout="CRateOut(4)" onmouseover="CRateOver(4)" onClick="CRateClick(4)" class="bi bi-star"></span>
-                                <span id="span5"  onmouseout="CRateOut(5)" onmouseover="CRateOver(5)" onClick="CRateClick(5)" class="bi bi-star"></span>
+                            }*@
+                            
+                            <form method="post" asp-action="AddRating" asp-controller="Mission">
+
+                            <div class="d-flex justify-content-center"> 
+                                <button class="header-btn" style="border:hidden">
+                            <div  onclick="CRateSelected()"> 
+                        @{
+                            var rateobj = Model.AppliedMission.MissionRatings.FirstOrDefault(f => f.UserId == Model.LoggedUser.UserId);
+                            if (rateobj!=null)
+                            {
+                                for(int i=1;i<=rateobj.Rating;i++){
+                                                    <span id="span_@i" onmouseout="CRateOut(@i)" onmouseover="CRateOver(@i)" onClick="CRateClick(@i)" class="bi bi-star-fill  yellow-color"></span>
+                                                }
+                                                for(int j = rateobj.Rating+1; j <= 5; j++)
+                                                {
+                                                    <span id="span_@j" onmouseout="CRateOut(@j)" onmouseover="CRateOver(@j)" onClick="CRateClick(@j)" class="bi bi-star"></span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                 <span id="span_1" onmouseout="CRateOut(1)" onmouseover="CRateOver(1)" onClick="CRateClick(1)" class="bi bi-star"></span>
+                              <span id="span_2"  onmouseout="CRateOut(2)" onmouseover="CRateOver(2)" onClick="CRateClick(2)" class="bi bi-star"></span>
+                              <span id="span_3"  onmouseout="CRateOut(3)" onmouseover="CRateOver(3)" onClick="CRateClick(3)" class="bi bi-star"></span>
+                               <span id="span_4"  onmouseout="CRateOut(4)" onmouseover="CRateOver(4)" onClick="CRateClick(4)" class="bi bi-star"></span>
+                                <span id="span_5"  onmouseout="CRateOut(5)" onmouseover="CRateOver(5)" onClick="CRateClick(5)" class="bi bi-star"></span> 
+                      
+                                            }
+                                        }
+                          
                         </div>
                         <div>
-                            <input type="hidden" name="rating" id="lblRating"/>
+                                      <input type="hidden" name="rating" id="lblRating"/>
                              <input type="hidden" name="MissionId" id="lblRating" value="@Model.AppliedMission.MissionId"/>
                               <input type="hidden" name="UserId" value="@Model.LoggedUser.UserId" id="lblRating"/>
                         </div>
-                        <button type="submit">submit rating</button>
+                        </button>
+                        </div>
+                       @* <button type="submit">submit rating</button>*@
                         </form>
 
                         
-
+                       @* }*@
                     </div>
                     <div class="d-flex mt-3 mission-info-card">
                         <div class="d-flex header-card-text header-card  p-3">
@@ -317,17 +370,23 @@ for(var i=1;i<=rating;i++){
                     </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="comments-tab">
 
-                        <form class="mt-3">
-                            <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                        <form class="mt-3" method="post" asp-action="AddComment" asp-controller="Mission">
+                            <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px" name="comment_text"></textarea>
                             @* <label for="floatingTextarea2">Enter Your Comments Here.....</label>*@
+                            <input type="hidden" name="missionId" value="@Model.AppliedMission.MissionId"/>
+                            <input type="hidden" name="userId" value="@Model.LoggedUser.UserId"/>
                             <button class="submit-btn mt-3">
                                 Post Comment
                             </button>
                         </form>
+              
+                        
                         <div class="container mt-3" style="border:1px solid #e8e8e869;background-color:#e8e8e869;">
                             <div class="overflow-scroll mt-3" style="max-height:510px">
-                                @for (int i = 0; i < 15; i++)
+                            
+                                @foreach(var comment in @Model.AppliedMission.Comments.Where(m=>m.ApprovalStatus.Contains("PUBLISHED")))
                                 {
+                                    
                                     <div class="card mb-3" style="max-width: 100%;">
                                         <div class="row g-0">
                                             <div class="col-sm-2 col-3 ps-3 pt-3">
@@ -335,9 +394,10 @@ for(var i=1;i<=rating;i++){
                                             </div>
                                             <div class="col-sm-10 col-9">
                                                 <div class="card-body">
-                                                    <h5 class="card-title" id="volunteer-name">Marrry Jaoe</h5>
-                                                    <p class="card-text" id="commented-date">Monday,October 21,2019. 4:57PM </p>
-                                                    <p class="card-text" id="commented-text">Nice Mission Greate Mission Opportunity For Everyone</p>
+                                                    
+                                                    <h5 class="card-title" id="volunteer-name">@comment.User.FirstName @comment.User.LastName</h5>
+                                                    <p class="card-text" id="commented-date">@comment.CreatedAt.Value.ToString("dddd, dd MMMM yyyy HH:mm:ss")</p>
+                                                   <p class="card-text" id="commented-text">@comment.CommentText</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -347,7 +407,7 @@ for(var i=1;i<=rating;i++){
 
                         </div>
 
-
+                        
                     </div>
                 </div>
 
@@ -383,7 +443,9 @@ for(var i=1;i<=rating;i++){
                             <p class="m-0 p-0 d-inline">Skill<span class="ps-3"> 
                                         
                                              <span>
-                                               @*  @foreach(var skillname in @Model.AppliedMission.MissionSkills){@skillname.Skill.SkillName}*@</span>
+                                               @foreach(var skillname in @Model.AppliedMission.MissionSkills)
+                                               {@skillname.Skill.SkillName}
+                                           </span>
                                         </span></p>
                             
                             <hr />
@@ -406,7 +468,7 @@ for(var i=1;i<=rating;i++){
                                     
                                 }
 
-                                <span>(By @Model.AppliedMission.MissionRatings.Count() Volunteers</span>
+                                <span>(By @Model.AppliedMission.MissionRatings.Count() Volunteers)</span>
                                 
                                 </span>}
                             </p>

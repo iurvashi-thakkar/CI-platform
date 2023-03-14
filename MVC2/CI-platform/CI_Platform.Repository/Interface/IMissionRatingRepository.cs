@@ -9,7 +9,7 @@ namespace CI_Platform.Repository.Interface
 {
    public interface IMissionRatingRepository:IRepository<MissionRating>
     {
-        void Update(User user);
+        void Update(MissionRating missionRating);
         void UpdateRating(MissionRating missionRating, int rating);
     }
 }
